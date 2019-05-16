@@ -2,8 +2,8 @@
 class usuario_controlador{
 
 	public function index(){
-		require_once "View/plantilla_encabezado.php";
-		require_once "View/usuario.php";	
+		//require_once "View/template_navbar.php";
+		require_once "View/login.php";
 
 
 
@@ -25,8 +25,8 @@ class usuario_controlador{
         	  echo "<script>";
               echo  "alert('USUARIO REGISTRADO CORRECTAMENTE')";
               echo "</script>";
-              require_once "View/plantilla_encabezado.php";
-			require_once "View/usuario.php";
+              require_once "View/template_navbar.php";
+			require_once "View/login.php";
         }else{
 
         }
@@ -70,8 +70,8 @@ public function usuarioeliminar(){
         	  echo "<script>";
               echo  "alert('USUARIO ELIMINADO CORRECTAMENTE')";
               echo "</script>";
-              require_once "View/plantilla_encabezado.php";
-			  require_once "View/usuario.php";
+              require_once "View/template_navbar.php";
+			  require_once "View/login.php";
         }else{
 
         }
@@ -93,8 +93,8 @@ public function usuarioeliminar(){
         	  echo "<script>";
               echo  "alert('USUARIO ACTUALIZADO CORRECTAMENTE')";
               echo "</script>";
-              require_once "View/plantilla_encabezado.php";
-			  require_once "View/usuario.php";
+              require_once "View/template_navbar.php";
+			  require_once "View/login.php";
         }else{
 
         }

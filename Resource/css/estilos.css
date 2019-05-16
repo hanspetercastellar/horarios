@@ -57,4 +57,17 @@ article{
 article footer{
 	text-align: right;
 }
+
+@media (max-width: 700px) {
+	.h4-responsive{
+
+		font-size: 8pt;
+
+	}
+}
+.h4-responsive{
+
+	font-size: 8pt;
+
+}
 	

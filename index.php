@@ -8,5 +8,5 @@ if(isset($_GET['controlador']) && isset($_GET['accion'])){
 	$controlador = "usuario";
 	$accion     = "index";
 }
-$URL = "http://$_SERVER[HTTP_HOST]"."/EjemploProfesor";
-require_once "View/plantilla_fondo.php";
+$URL = "http://$_SERVER[HTTP_HOST]"."/horarios";
+require_once "View/header.php";

@@ -6,7 +6,10 @@
   	require_once "Model/".$contenido."_Model.php";
   	$cnt->{$accion}();
   }
-    $controladores = array("usuario" => array("index","regUsuario","usuarioeliminar","usuarioactualizar")
+    $controladores = array(
+                 "usuario" => array("index","regUsuario","usuarioeliminar","usuarioactualizar"),
+                 "admin" => array("home","panelDocentes","PanelAdmin")
+
     
     );
 if (array_key_exists($controlador, $controladores)){
