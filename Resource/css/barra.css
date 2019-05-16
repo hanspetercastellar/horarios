@@ -1,0 +1,69 @@
+
+* {
+	padding:0;
+	margin:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+header {
+	width: 100%;
+}
+header nav {
+	background:#023859;/*color del fondo del slide*/
+	z-index:1000;
+	/*max-width: 1000px;
+	width:95%;*/ /*--------------------------------------Recojer la barra-----------------------------------*/
+	margin:0px auto;
+} 
+header nav ul {
+	list-style:none;
+} 
+header nav ul li {
+	display:inline-block; /*Coloca de manera Horizontal el menu*/
+	position: relative;
+}
+header nav ul li:hover {
+	background:#013ADF; /*color fondo de el slide al pasar el mause*/
+}
+header nav ul li a {
+	color:#fff; /*Color de letra*/
+	display:block;
+	text-decoration:none;
+	padding: 18px; /*Espacio entre los botones*/
+}
+header nav ul li a span {
+	margin-right:10px; /*Espacio entre logos y frase de boton*/
+}
+header nav ul li:hover .children {
+	display:block;
+}
+header nav ul li .children {
+	display: none;
+	background:#0B0B3B; /*Color al desplegar el menu*/
+	position: absolute;
+	width: 150%;
+	z-index:1000;
+}
+header nav ul li .children li {
+	display:block;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(255,255,255,.5);
+}
+header nav ul li .children li a {
+	display: block;
+}
+header nav ul li .children li a span {
+	float: right;
+	position: relative;
+	top:3px;
+	margin-right:0;
+	margin-left:10px;
+}
+header nav ul li .caret {
+	position: relative;
+	top:3px;
+	margin-left:10px;
+	margin-right:0px;
+}
