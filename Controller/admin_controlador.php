@@ -7,4 +7,5 @@ class admin_controlador{
         require_once "View/admin/home.php";
     }
 
+
 }

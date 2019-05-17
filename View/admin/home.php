@@ -44,8 +44,12 @@
                      <div class="row">
                         <div class="col-xl-5 col-md-5 col-sm-5">
                             <label>Correo</label>
-                            <input type="email" class="form-control form-control-sm">
+                            <input type="email" class="form-control form-control-sm" >
                         </div>
+                         <div class="col-xl-5 col-md-5 col-sm-5">
+                             <label>Contraseña</label>
+                             <input type="password" class="form-control form-control-sm">
+                         </div>
                      </div>
                      <div class="row d-flex justify-content-end">
                          <div class="col-xl-2 col-md-2 col-sm-2">
@@ -53,6 +57,21 @@
                          </div>
                      </div>
                  </form>
+             </div>
+         </div>
+         <div class="row justify-content-between mt-3">
+             <div class="col">
+
+             </div>
+             <div class="col">
+                 <div class="row justify-content-end">
+                     <div class="col-sm-2 col-md-2 col-md-2">
+                         <button class="btn btn-sm btn-secondary">Resetear</button>
+                     </div>
+                     <div class="col-sm-4 col-md-4 col-md-4">
+                         <button class="btn btn-sm btn-success" id="guardar">Guardar horario</button>
+                     </div>
+                 </div>
              </div>
          </div>
          <section class="mt-5">
@@ -64,6 +83,7 @@
                         <th>MARTES</th>
                         <th>MIERCOLES</th>
                         <th>JUEVES</th>
+                        <th>VIERNES</th>
                         <th>SABADO</th>
 
                     </tr>
@@ -124,6 +144,11 @@
 
       $("#año").html(`${currenYear} `)
       cargarHoras()
+      $("#guardar").click(function(){
+
+          guardarHorario()
+
+      })
 
   }
 
@@ -134,11 +159,12 @@
             $("#table tbody").append(`
                          <tr>
                             <td> ${el} </td>
-                            <td>  </td>
-                              <td> </td>
-                             <td>  </td>
-                             <td>  </td>
-                             <td>  </td>
+                            <td></td>
+                              <td></td>
+                             <td></td>
+                             <td></td>
+                             <td></td>
+                           <td></td>
                          </tr>`);
         });
 
@@ -149,15 +175,64 @@
             {
                 $($(tr)[i]).mouseover(()=>{
                     $($(tr)[i]).addClass("bg-primary")
+                    $($(tr)[i]).css("cursor","pointer")
+
                 });
                 $($(tr)[i]).mouseout(()=>{
                     $($(tr)[i]).removeClass("bg-primary")
+                    $($(tr)[i]).css("cursor","pointer")
                 });
 
+                $($(tr)[i]).click(()=>{
+                    if ( $($(tr)[i]).hasClass('bg-success'))
+                    {
+                        $($(tr)[i]).removeClass("bg-success")
+                        $($(tr)[i]).text("")
+
+                    }else{
+                        $($(tr)[i]).text($($(tr)[0]).text())
+                        $($(tr)[i]).addClass("bg-success")
+                    }
+
+                });
 
 
             }
 
         });
+    }
+
+
+    function guardarHorario()
+    {
+        var array = new Array();
+
+        $("#table tbody tr").each((i,el)=>{
+
+            let td = $(el).find("td");
+
+
+                var lunes = $($(td)[1]).text();
+                var martes = $($(td)[2]).text();
+                var miercoles = $($(td)[3]).text();
+                var jueves = $($(td)[4]).text();
+                var viernes = $($(td)[5]).text();
+                var sabado = $($(td)[6]).text();
+
+                var horasDisponibles = new Array(lunes,martes,miercoles,jueves,viernes,sabado)
+                array.push(horasDisponibles);
+
+
+
+        })
+
+
+            $.post("?controlador=docente&accion=regHorario",{"datos":array},function (response) {
+                console.log(response)
+            })
+
+
+
+
     }
 </script>

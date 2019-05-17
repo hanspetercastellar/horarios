@@ -8,7 +8,8 @@
   }
     $controladores = array(
                  "usuario" => array("index","regUsuario","usuarioeliminar","usuarioactualizar"),
-                 "admin" => array("home","panelDocentes","PanelAdmin")
+                 "admin" => array("home","regHorario","PanelAdmin"),
+                  "docente"=>array("regHorario")
 
     
     );
