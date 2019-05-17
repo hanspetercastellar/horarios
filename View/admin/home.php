@@ -59,9 +59,7 @@
              <table id="table" class="table table-sm table-responsive-sm table-responsive-xl table-responsive-md table-striped table-light table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                  <thead>
                     <tr>
-                        <th>HORA <input type="text" id="hora" list="listHora" class="form-control form-control-sm">
-                            <datalist id="listHora">
-                            </datalist></th>
+                        <th>HORA </th>
                         <th>LUNES</th>
                         <th>MARTES</th>
                         <th>MIERCOLES</th>
@@ -71,8 +69,11 @@
                     </tr>
                  </thead>
                  <tbody>
-                    <tr>
+                   <!-- <tr>
                         <td width="150">
+                            <input type="text" id="hora" list="listHora" class="form-control form-control-sm">
+                            <datalist id="listHora">
+                            </datalist>
                         </td>
                         <td>
                             <select class="custom-select form-control form-control-sm">
@@ -107,7 +108,7 @@
                         <td>
                             <button type="button" class="btn btn-success btn-sm">+</button>
                         </td>
-                    </tr>
+                    </tr>-->
                  </tbody>
              </table>
          </section>
@@ -130,7 +131,33 @@
     {
         var horas = [ "06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00" ]
         $(horas).each((i,el)=>{
-            $("#listHora").append(`<option value=" ${el}" >${i+1}</option>`);
+            $("#table tbody").append(`
+                         <tr>
+                            <td> ${el} </td>
+                            <td>  </td>
+                              <td> </td>
+                             <td>  </td>
+                             <td>  </td>
+                             <td>  </td>
+                         </tr>`);
+        });
+
+        $("#table tbody tr").each((i,el)=>{
+            let tr = $(el).find("td");
+            //alert(tr.length)
+            for (let i = 0; i<= tr.length; i++)
+            {
+                $($(tr)[i]).mouseover(()=>{
+                    $($(tr)[i]).addClass("bg-primary")
+                });
+                $($(tr)[i]).mouseout(()=>{
+                    $($(tr)[i]).removeClass("bg-primary")
+                });
+
+
+
+            }
+
         });
     }
 </script>
