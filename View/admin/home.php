@@ -145,7 +145,7 @@
         $("#table tbody tr").each((i,el)=>{
             let tr = $(el).find("td");
             //alert(tr.length)
-            for (let i = 0; i<= tr.length; i++)
+            for (let i = 1; i<= tr.length; i++)
             {
                 $($(tr)[i]).mouseover(()=>{
                     $($(tr)[i]).addClass("bg-primary")
