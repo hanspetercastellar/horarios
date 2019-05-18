@@ -12,7 +12,7 @@ class docente_controlador{
         for ($i=0; $i<= count($array)-1; $i++)
         {
 
-            $estado = docente_model::regHorario(
+             docente_model::regHorario(
                 $array[$i][0],
                 $array[$i][1],
                 $array[$i][2],
@@ -24,8 +24,8 @@ class docente_controlador{
             );
 
 
-        }
 
+        }
 
 
     }

@@ -8,7 +8,7 @@
 
     <div class="align-self-center shadow p-4 mb-4  bg-light   p-5">
         <div class="  "><h3 class="font-weight-light text-sm-left ">Inicie sesion</h3></div>
-        <form method="POST" action="{{ route('login') }}" aria-label="Login">
+        <form method="POST" action="?controlador=admin&accion=login" aria-label="Login">
 
             <div class="form-group row ">
                 <label for="email" class="col-sm-4 col-form-label text-md-right"></label>

@@ -24,7 +24,7 @@ class docente_model{
 
             try{
 
-                $sql='CALL insertHorario(:lunes,:martes,:miercoles,:jueves,:viernes,:sabado,:docente)';
+                $sql='CALL registrarHorario(:lunes,:martes,:miercoles,:jueves,:viernes,:sabado,:docente,NOW())';
                 $sth=$c->prepare($sql);
                 $sth->bindParam(':lunes', $lunes, PDO::PARAM_STR,45);
                 $sth->bindParam(':martes',$martes, PDO::PARAM_STR,45);
@@ -44,7 +44,7 @@ class docente_model{
             $bd->cerrar();
 
             $estado=true;
-            return $estado;
+           echo $estado;
 
 
         }

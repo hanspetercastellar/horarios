@@ -4,7 +4,7 @@ class conexion{
 	private  $host="localhost";
     private  $user="root";
     private  $pass="";
-    private  $database="mydb";
+    private  $database="shenlong";
 
 	public function __construct(){
 		try{
