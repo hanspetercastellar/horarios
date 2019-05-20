@@ -19,23 +19,37 @@ class admin_model{
 
         try{
 
-            $sql= "CALL login(':email',:hash_password)";
-            $hash_password= md5( $password); //Password encryption
-           $sth =$conect->prepare($sql);
-            $sth->bindParam('email', $email,PDO::PARAM_STR );
-            $sth->bindParam("hash_password", $hash_password,PDO::PARAM_STR) ;
-            $sth->execute();
-            $count = $sth->rowCount();
-            $data = $sth->fetch(PDO::FETCH_OBJ);
-            if($count)
-            {
+         if(!empty($email) && !empty($password))
+         {
+             $sql= "CALL login('hanspeter1512@gmail.com',123456)";
+             //$hash_password= md5( $password); //Password encryption
+             $sth =$conect->prepare($sql);
+             $sth->bindParam(':email', $email,PDO::PARAM_STR );
+             $sth->bindParam(":password", $password,PDO::PARAM_STR) ;
+             $sth->execute();
+             $count = $sth->rowCount();
+             $data = $sth->fetch(PDO::FETCH_OBJ);
+             if($count)
+             {
 
-              echo var_dump($data);
+                 session_start();
+                 $_SESSION["id_usuario"]= $data->usuario_id;
+                 $_SESSION["rol"] = 2;
+                 $_SESSION["nombre"] = $data->usuario_nombre;
+                 $_SESSION["apellido"] = $data->usuario_apellido;
 
-            }else{
+                 header("location: http://localhost/horarios/?controlador=admin&accion=home");
+                 echo $data->usuario_id;
 
-                return false;
-            }
+             }else{
+
+                 echo 000 ;
+             }
+
+
+
+
+         }
 
 
         }
@@ -45,6 +59,35 @@ class admin_model{
               die("Error occurred:" . $e->getMessage());
 
           }
+
+    }
+
+    public function getDocentes()
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql = "CALL getDocentes()";
+        $sth =$conect->prepare($sql);
+        $sth->execute();
+        $count = $sth->rowCount();
+
+
+        while ($data = $sth->fetch())
+        {
+            $id= $data["cedula"];
+            $nombre = $data["nombre"];
+
+           echo "
+
+                      <option value=\"$nombre\">$id</option>
+
+                  ";
+
+
+        }
+
+
 
     }
 

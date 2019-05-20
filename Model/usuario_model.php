@@ -1,5 +1,5 @@
 <?php
-class usuario_model{
+class   usuario_model{
   /////////////////////////////////////////////////////////////////////////
 	public function __construct(){}
 

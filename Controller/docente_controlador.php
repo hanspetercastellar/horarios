@@ -29,4 +29,12 @@ class docente_controlador{
 
 
     }
+
+    public function logout()
+    {
+        session_destroy();
+
+        header("location: http://localhost/horarios/");
+
+    }
 }
