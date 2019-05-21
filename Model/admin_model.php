@@ -21,11 +21,11 @@ class admin_model{
 
          if(!empty($email) && !empty($password))
          {
-             $sql= "CALL login('hanspeter1512@gmail.com',123456)";
+             $sql= "CALL login(:email,:password)";
              //$hash_password= md5( $password); //Password encryption
              $sth =$conect->prepare($sql);
-             $sth->bindParam(':email', $email,PDO::PARAM_STR );
-             $sth->bindParam(":password", $password,PDO::PARAM_STR) ;
+             $sth->bindParam(':email', $email,PDO::PARAM_STR,100 );
+             $sth->bindParam(":password", $password,PDO::PARAM_STR,100) ;
              $sth->execute();
              $count = $sth->rowCount();
              $data = $sth->fetch(PDO::FETCH_OBJ);
@@ -34,7 +34,7 @@ class admin_model{
 
                  session_start();
                  $_SESSION["id_usuario"]= $data->usuario_id;
-                 $_SESSION["rol"] = 2;
+                 $_SESSION["rol"] = $data->rol_id ;
                  $_SESSION["nombre"] = $data->usuario_nombre;
                  $_SESSION["apellido"] = $data->usuario_apellido;
 

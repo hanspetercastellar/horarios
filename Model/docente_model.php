@@ -13,6 +13,8 @@ class docente_model{
     public function regHorario($lunes,$martes,$miercoles,$jueves,$viernes,$sabado,$docente)
     {
 
+
+
         $bd = new conexion();
         $c  = $bd->conectar();
 
@@ -24,7 +26,7 @@ class docente_model{
 
             try{
 
-                $sql='CALL registrarHorario(:lunes,:martes,:miercoles,:jueves,:viernes,:sabado,:docente,NOW())';
+                $sql='CALL regHorario(:lunes,:martes,:miercoles,:jueves,:viernes,:sabado,:docente)';
                 $sth=$c->prepare($sql);
                 $sth->bindParam(':lunes', $lunes, PDO::PARAM_STR,45);
                 $sth->bindParam(':martes',$martes, PDO::PARAM_STR,45);
@@ -33,7 +35,7 @@ class docente_model{
                 $sth->bindParam(':viernes',$viernes, PDO::PARAM_STR,45);
                 $sth->bindParam(':sabado',$sabado, PDO::PARAM_STR,45);
                 $sth->bindParam(':docente', $docente, PDO::PARAM_INT);
-
+                $sth->execute();
 
             }catch (PDOException $e){
 

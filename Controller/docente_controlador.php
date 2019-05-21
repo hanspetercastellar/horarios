@@ -9,6 +9,7 @@ class docente_controlador{
 
         $array = $_POST["datos"];
 
+
         for ($i=0; $i<= count($array)-1; $i++)
         {
 

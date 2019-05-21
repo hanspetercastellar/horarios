@@ -23,7 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Programas</a>
                     </li>
-            <?php }?>
+            <?php } ?>
 		</ul>
         <ul class="navbar-nav">
             <li class="nav-item">
