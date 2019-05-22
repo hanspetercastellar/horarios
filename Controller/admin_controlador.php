@@ -15,6 +15,8 @@ class admin_controlador{
                 require_once "View/template_navbar.php";
                 require_once "View/admin/home.php";
 
+
+
             }else if ($_SESSION["rol"]==2)
             {
 

@@ -62,6 +62,22 @@ class admin_model{
 
     }
 
+    public function getHorariosXdocente($docente_id)
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql= "CALL getHorariosXdocente(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $sth =$conect->prepare($sql);
+        $sth->bindParam(':id', $docente_id,PDO::PARAM_INT );
+        $sth->execute();
+        $count = $sth->rowCount();
+        $data = $sth->fetch(PDO::FETCH_OBJ);
+
+        return $data;
+    }
+
     public function getDocentes()
     {
         $db = new Conexion();
