@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 21, 2019 at 11:43 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 23-05-2019 a las 00:00:15
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,15 +19,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shenlong`
+-- Base de datos: `shenlong`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimientos
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDocentes` ()  NO SQL
 SELECT usuario_id as id, usuario_documento as cedula,usuario_nombre as nombre  from usuarios WHERE rol_id = 1$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getHorariosXdocente` (IN `id_usuario` INT(11))  NO SQL
+SELECT lunes,martes,miercoles,jueves,viernes,sabado from horarios where usuario_id = id_usuario$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `correo_par` VARCHAR(100), IN `pass` VARCHAR(100))  NO SQL
 SELECT * from usuarios WHERE `password` = pass AND correo = correo_par$$
@@ -41,7 +44,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `asignaturas`
+-- Estructura de tabla para la tabla `asignaturas`
 --
 
 CREATE TABLE `asignaturas` (
@@ -53,7 +56,7 @@ CREATE TABLE `asignaturas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `docentes_asignaturas`
+-- Estructura de tabla para la tabla `docentes_asignaturas`
 --
 
 CREATE TABLE `docentes_asignaturas` (
@@ -65,7 +68,7 @@ CREATE TABLE `docentes_asignaturas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `horarios`
+-- Estructura de tabla para la tabla `horarios`
 --
 
 CREATE TABLE `horarios` (
@@ -81,7 +84,7 @@ CREATE TABLE `horarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `horarios`
+-- Volcado de datos para la tabla `horarios`
 --
 
 INSERT INTO `horarios` (`horario_id`, `lunes`, `martes`, `miercoles`, `jueves`, `viernes`, `sabado`, `usuario_id`, `fecha`) VALUES
@@ -123,7 +126,7 @@ INSERT INTO `horarios` (`horario_id`, `lunes`, `martes`, `miercoles`, `jueves`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `programas`
+-- Estructura de tabla para la tabla `programas`
 --
 
 CREATE TABLE `programas` (
@@ -139,7 +142,7 @@ CREATE TABLE `programas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `programas_asignaturas`
+-- Estructura de tabla para la tabla `programas_asignaturas`
 --
 
 CREATE TABLE `programas_asignaturas` (
@@ -152,7 +155,7 @@ CREATE TABLE `programas_asignaturas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Estructura de tabla para la tabla `roles`
 --
 
 CREATE TABLE `roles` (
@@ -161,7 +164,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `roles`
+-- Volcado de datos para la tabla `roles`
 --
 
 INSERT INTO `roles` (`rol_id`, `rol`) VALUES
@@ -171,7 +174,7 @@ INSERT INTO `roles` (`rol_id`, `rol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -187,7 +190,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `usuario_nombre`, `usuario_apellido`, `usuario_documento`, `direccion`, `telefono`, `correo`, `password`, `rol_id`) VALUES
@@ -196,17 +199,17 @@ INSERT INTO `usuarios` (`usuario_id`, `usuario_nombre`, `usuario_apellido`, `usu
 (3, 'Edilberto', 'Navarro', '124365', 'calle ancha 987', 3224466, 'enavarro@ul.edu.co', '123456', 2);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `asignaturas`
+-- Indices de la tabla `asignaturas`
 --
 ALTER TABLE `asignaturas`
   ADD PRIMARY KEY (`asignatura_id`);
 
 --
--- Indexes for table `docentes_asignaturas`
+-- Indices de la tabla `docentes_asignaturas`
 --
 ALTER TABLE `docentes_asignaturas`
   ADD PRIMARY KEY (`docente_asignatura_id`),
@@ -214,20 +217,20 @@ ALTER TABLE `docentes_asignaturas`
   ADD KEY `fk_usuarios_docentes_asignaturas_idx` (`usuaio_id`);
 
 --
--- Indexes for table `horarios`
+-- Indices de la tabla `horarios`
 --
 ALTER TABLE `horarios`
   ADD PRIMARY KEY (`horario_id`),
   ADD KEY `horarios_usuarios_usuario_id_fk` (`usuario_id`);
 
 --
--- Indexes for table `programas`
+-- Indices de la tabla `programas`
 --
 ALTER TABLE `programas`
   ADD PRIMARY KEY (`programa_id`);
 
 --
--- Indexes for table `programas_asignaturas`
+-- Indices de la tabla `programas_asignaturas`
 --
 ALTER TABLE `programas_asignaturas`
   ADD PRIMARY KEY (`pa_id`),
@@ -235,90 +238,90 @@ ALTER TABLE `programas_asignaturas`
   ADD KEY `fk_programas_programas_asignaturas_idx` (`programa_id`);
 
 --
--- Indexes for table `roles`
+-- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`rol_id`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario_id`),
   ADD KEY `fk_roles_usuarios_idx` (`rol_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `asignaturas`
+-- AUTO_INCREMENT de la tabla `asignaturas`
 --
 ALTER TABLE `asignaturas`
   MODIFY `asignatura_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `docentes_asignaturas`
+-- AUTO_INCREMENT de la tabla `docentes_asignaturas`
 --
 ALTER TABLE `docentes_asignaturas`
   MODIFY `docente_asignatura_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `horarios`
+-- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
   MODIFY `horario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT for table `programas`
+-- AUTO_INCREMENT de la tabla `programas`
 --
 ALTER TABLE `programas`
   MODIFY `programa_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `programas_asignaturas`
+-- AUTO_INCREMENT de la tabla `programas_asignaturas`
 --
 ALTER TABLE `programas_asignaturas`
   MODIFY `pa_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
   MODIFY `rol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `docentes_asignaturas`
+-- Filtros para la tabla `docentes_asignaturas`
 --
 ALTER TABLE `docentes_asignaturas`
   ADD CONSTRAINT `fk_asignaturas_docentes_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
   ADD CONSTRAINT `fk_usuarios_docentes_asignaturas` FOREIGN KEY (`usuaio_id`) REFERENCES `usuarios` (`usuario_id`);
 
 --
--- Constraints for table `horarios`
+-- Filtros para la tabla `horarios`
 --
 ALTER TABLE `horarios`
   ADD CONSTRAINT `horarios_usuarios_usuario_id_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`);
 
 --
--- Constraints for table `programas_asignaturas`
+-- Filtros para la tabla `programas_asignaturas`
 --
 ALTER TABLE `programas_asignaturas`
   ADD CONSTRAINT `fk_asignaturas_programas_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
   ADD CONSTRAINT `fk_programas_programas_asignaturas` FOREIGN KEY (`programa_id`) REFERENCES `programas` (`programa_id`);
 
 --
--- Constraints for table `usuarios`
+-- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `fk_roles_usuarios` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`);
