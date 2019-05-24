@@ -9,4 +9,7 @@ if(isset($_GET['controlador']) && isset($_GET['accion'])){
 	$accion     = "index";
 }
 $URL = "http://$_SERVER[HTTP_HOST]"."/horarios";
-require_once "View/header.php";
+
+require_once "rutas.php";
+
+

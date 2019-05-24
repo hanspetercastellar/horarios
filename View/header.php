@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <?php $URL = "http://$_SERVER[HTTP_HOST]"."/horarios"; ?>
   <title></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,4 @@
 
 
 
-<?php
-require_once "rutas.php";
-?>
+

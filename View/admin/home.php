@@ -1,3 +1,4 @@
+
 <div class="container mt-3 bg-light p-3 ">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb p-0">
@@ -7,7 +8,7 @@
      <div class="container" >
 
          <div class="row  mt-3 d-flex justify-content-start  ">
-
+           <input type="hidden" id="id_docente" value="<?= $_SESSION["id_usuario"]?>">
              <div class=" col-xl-2 col-md-2 col-sm-2 border-right " style="border-right: #4e555b solid">
                  <h6>Información general</h6>
                  <div>Año en curso <strong id="año"></strong></div>
@@ -89,16 +90,26 @@
                     </tr>
                  </thead>
                  <tbody>
-                   <?php
-                  $horarios = admin_model::getHorariosXdocente($_SESSION["id_usuario"]);
 
-                      foreach ($horarios as $horario)
-                      {
-                          var_dump(json_encode($horarios));
 
-                      }
-                   ?>
+                 </tbody>
+             </table>
+         </section>
+         <section class="mt-5 hide" id="tablaOculta">
+             <table id="table" class="table table-sm table-responsive-sm table-responsive-xl table-responsive-md table-striped table-light table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
+                 <thead>
+                 <tr>
+                     <th>HORA </th>
+                     <th>LUNES</th>
+                     <th>MARTES</th>
+                     <th>MIERCOLES</th>
+                     <th>JUEVES</th>
+                     <th>VIERNES</th>
+                     <th>SABADO</th>
 
+                 </tr>
+                 </thead>
+                 <tbody>
                  </tbody>
              </table>
          </section>
@@ -107,25 +118,36 @@
 
 <script>
     var year = new Date();
-  window.onload= function () {
+   window.onload= function () {
+          $("#tablaOculta").addClass("d-none")
+         //console.log($("#id_docente").val())
+          var currenYear = year.getFullYear();
+          var month = year.getMonth();
 
-      var currenYear = year.getFullYear();
-      var month = year.getMonth();
+          $("#año").html(`${currenYear}`)
 
-      $("#año").html(`${currenYear} `)
-      cargarHoras()
-      $("#guardar").click(function(){
+          $("#guardar").click(function(){
 
-          guardarHorario()
+                guardarHorario()
+          })
 
+                cargarHoras()
+       getHorarios()
+
+  }
+
+  function getHorarios()
+  {
+      $.post('?controlador=admin&accion=getHorarios',(response)=>{
+          console.log($.parseJSON(response));
       })
-
   }
 
     function cargarHoras()
     {
-        var horas = [ "06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00" ]
-        $(horas).each((i,el)=>{
+            var horas = [ "06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00" ]
+
+         $(horas).each((i,el)=>{
             $("#table tbody").append(`
                          <tr>
                             <td> ${el} </td>
@@ -208,15 +230,27 @@
 
 
         })
-
+          localStorage.setItem("horarios",JSON.stringify(array))
         /*la funcion de jquery $.post() realiza una peticion ajax de tipo post. Recibe tres parametros; una cabecera la cual corresponde a la url
           ,las variables post que se envian en forma de objetos,y por ultipo una funcion callback, la cual maneja la respuesta del servidor */
             $.post("?controlador=docente&accion=regHorario",{"datos":array},function (response) {
                 console.log(response)
+
             })
 
 
 
 
     }
+     function verificarHorario(id_docente)
+     {
+
+         $.post('?controlador=docente&accion=verificarHorario',{"id":id_docente},(response)=>{
+
+             return response;
+
+         });
+
+     }
+
 </script>

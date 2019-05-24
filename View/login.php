@@ -1,8 +1,11 @@
+<?php require_once "View/header.php"; ?>
+
 <script>
     $(document).ready(function(){
 
     });
     </script>
+
 <div class="container d-flex bd-highlight mt-lg-5 mt-sm-1 mt-md-3  w-75 justify-content-center ">
 
 

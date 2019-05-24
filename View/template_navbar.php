@@ -35,7 +35,7 @@
                         <?= $_SESSION["nombre"]; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="?controlador=docente&accion=logout">Salir</a>
+                        <a class="dropdown-item" href="?controlador=docente&accion=logout" onclick="localStorage.setItem('horarios','0')">Salir</a>
 
                     </div>
                 </div>

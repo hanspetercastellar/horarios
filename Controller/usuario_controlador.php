@@ -3,7 +3,9 @@ class usuario_controlador{
 
 	public function index(){
 		//require_once "View/template_navbar.php";
-		require_once "View/login.php";
+        require_once "View/header.php";
+
+        require_once "View/login.php";
 
 
 

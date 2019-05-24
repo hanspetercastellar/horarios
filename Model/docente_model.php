@@ -10,6 +10,23 @@ class docente_model{
 
     }
 
+    public function verificarHorario($id)
+    {
+        $bd = new conexion();
+        $c  = $bd->conectar();
+
+        $sql = 'CALL verificarHorario(:id)';
+
+        $sth = $c->prepare($sql);
+        $sth->bindParam(':id',$id,PDO::PARAM_INT);
+        $sth->execute();
+        $count = $sth->rowCount();
+
+        echo $count;
+
+
+    }
+
     public function regHorario($lunes,$martes,$miercoles,$jueves,$viernes,$sabado,$docente)
     {
 

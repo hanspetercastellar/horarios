@@ -73,7 +73,7 @@ class admin_model{
         $sth->bindParam(':id', $docente_id,PDO::PARAM_INT );
         $sth->execute();
         $count = $sth->rowCount();
-        $data = $sth->fetch(PDO::FETCH_OBJ);
+        $data = $sth->fetch(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -91,12 +91,12 @@ class admin_model{
 
         while ($data = $sth->fetch())
         {
-            $id= $data["cedula"];
+            $id= $data["id"];
             $nombre = $data["nombre"];
 
            echo "
 
-                      <option value=\"$nombre\">$id</option>
+                      <option value=\"$id\">$nombre</option>
 
                   ";
 
@@ -104,6 +104,36 @@ class admin_model{
         }
 
 
+
+    }
+    public function buscarHorarioXdocente($cedula)
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql= "CALL buscarHorarioXdocente(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $sth =$conect->prepare($sql);
+        $sth->bindParam(':id', $cedula,PDO::PARAM_INT );
+        $sth->execute();
+        $count = $sth->rowCount();
+        while ($data = $sth->fetch())
+        {
+            $horarios[]=array(
+                 "lunes"=>$data["lunes"],
+                 "martes"=>$data["martes"],
+                "miercoles"=>$data["miercoles"],
+                "jueves"=>$data["jueves"],
+                "viernes"=>$data["viernes"],
+                "sabado"=>$data["sabado"],
+            );
+
+
+        }
+
+
+
+        return  $horarios;
 
     }
 

@@ -12,7 +12,7 @@
                   </datalist>
               </div>
               <div class="col col-xl-2 col-md-2 col-sm-2">
-                  <button class="btn btn-primary">Buscar</button>
+                  <button class="btn btn-primary" id="buscar">Buscar</button>
               </div>
           </form>
       </div>
@@ -38,3 +38,67 @@
         </section>
     </div>
 </div>
+<script>
+
+    window.onload = function () {
+
+        $("#buscar").click((e)=>{
+
+            e.preventDefault()
+
+            if($("#docente").val()=="")
+            {
+                alert("Disculpe, no se admiten datos vacios");
+            }else{
+
+                buscarHorarioXdocente( $("#docente").val() );
+
+            }
+
+
+        })
+
+    }
+
+    function  buscarHorarioXdocente(cc)
+    {
+
+        $.post('?controlador=admin&accion=buscarHorarioXdocente',{"cc":cc},(response)=>{
+
+            let json = $.parseJSON(response);
+            $("#table tbody").html("")
+            for(var i=0; i <= json.length; i++)
+            {
+
+
+                let tr = ` <tr>
+                              <td>${ json[i].lunes } </td>
+                             <td>${ json[i].martes }</td>
+                              <td>${ json[i].miercoles }</td>
+                              <td>${ json[i].jueves }</td>
+                               <td>${ json[i].viernes }</td>
+                               <td>${ json[i].sabado }</td>
+                            </tr> `
+                $("#table tbody").append(tr)
+
+            }
+
+            $("#table tbody tr").each((i,el)=>{
+
+                let td = $(el).find("td");
+
+                if($($(td)[i]).text()!= "")
+                {
+                    $($(td)[i]).text();
+                }
+
+            });
+
+
+        });
+
+    }
+
+
+
+</script>
