@@ -1,190 +1,156 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: May 24, 2019 at 04:57 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+/*
+SQLyog Community v13.1.2 (64 bit)
+MySQL - 10.1.38-MariaDB : Database - shenlong
+*********************************************************************
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+/*!40101 SET NAMES utf8 */;
 
+/*!40101 SET SQL_MODE=''*/;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci */;
 
---
--- Database: `shenlong`
---
+USE `shenlong`;
 
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarHorarioXdocente` (IN `cedula` INT(11))  NO SQL
-SELECT lunes,martes,miercoles,jueves,viernes,sabado
-from horarios 
-WHERE usuario_id = cedula
-order BY fecha DESC limit 17$$
+/*Table structure for table `asignaturas` */
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDocentes` ()  NO SQL
-SELECT usuario_id as id, usuario_documento as cedula,usuario_nombre as nombre  from usuarios WHERE rol_id = 1$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getHorariosXdocente` (IN `id_usuario` INT(11))  NO SQL
-SELECT lunes,martes,miercoles,jueves,viernes,sabado from horarios where usuario_id = id_usuario$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `correo_par` VARCHAR(100), IN `pass` VARCHAR(100))  NO SQL
-SELECT * from usuarios WHERE `password` = pass AND correo = correo_par$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `regHorario` (IN `lunes_par` VARCHAR(45), IN `martes_par` VARCHAR(45), IN `miercoles_par` VARCHAR(45), IN `jueves_par` VARCHAR(45), IN `viernes_par` VARCHAR(45), IN `sabado_par` VARCHAR(45), IN `usuario_id_par` INT(11) UNSIGNED)  NO SQL
-INSERT into horarios (lunes,martes,miercoles,jueves,viernes,sabado,usuario_id,fecha)
-VALUES (lunes_par,martes_par,miercoles_par,jueves_par,viernes_par,sabado_par,usuario_id_par,NOW())$$
-
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `asignaturas`
---
+DROP TABLE IF EXISTS `asignaturas`;
 
 CREATE TABLE `asignaturas` (
-  `asignatura_id` int(11) NOT NULL,
+  `asignatura_id` int(11) NOT NULL AUTO_INCREMENT,
   `asignatura_nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `asignatura_creditos` int(5) DEFAULT NULL
+  `asignatura_creditos` int(5) DEFAULT NULL,
+  PRIMARY KEY (`asignatura_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
+/*Data for the table `asignaturas` */
 
---
--- Table structure for table `docentes_asignaturas`
---
+/*Table structure for table `docentes_asignaturas` */
+
+DROP TABLE IF EXISTS `docentes_asignaturas`;
 
 CREATE TABLE `docentes_asignaturas` (
-  `docente_asignatura_id` int(11) NOT NULL,
+  `docente_asignatura_id` int(11) NOT NULL AUTO_INCREMENT,
   `usuaio_id` int(11) DEFAULT NULL,
-  `asignatura_id` int(11) DEFAULT NULL
+  `asignatura_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`docente_asignatura_id`),
+  KEY `fk_asignaturas_docentes_asignaturas_idx` (`asignatura_id`),
+  KEY `fk_usuarios_docentes_asignaturas_idx` (`usuaio_id`),
+  CONSTRAINT `fk_asignaturas_docentes_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
+  CONSTRAINT `fk_usuarios_docentes_asignaturas` FOREIGN KEY (`usuaio_id`) REFERENCES `usuarios` (`usuario_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
+/*Data for the table `docentes_asignaturas` */
 
---
--- Table structure for table `horarios`
---
+/*Table structure for table `docentes_horarios` */
+
+DROP TABLE IF EXISTS `docentes_horarios`;
+
+CREATE TABLE `docentes_horarios` (
+  `docente_horario_id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  PRIMARY KEY (`docente_horario_id`),
+  KEY `fk_usuarios_horarios` (`usuario_id`),
+  CONSTRAINT `fk_usuarios_horarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `docentes_horarios` */
+
+insert  into `docentes_horarios`(`docente_horario_id`,`usuario_id`,`fecha`) values 
+(26,1,'2019-05-26'),
+(27,1,'2019-05-26'),
+(28,1,'2019-05-26'),
+(29,1,'2019-05-26'),
+(30,1,'2019-05-26'),
+(31,1,'2019-05-27');
+
+/*Table structure for table `horarios` */
+
+DROP TABLE IF EXISTS `horarios`;
 
 CREATE TABLE `horarios` (
-  `horario_id` int(11) NOT NULL,
+  `horario_id` int(11) NOT NULL AUTO_INCREMENT,
   `lunes` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `martes` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `miercoles` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `jueves` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `viernes` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `sabado` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `fecha` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `docente_horario_id` int(1) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  PRIMARY KEY (`horario_id`),
+  KEY `fk_horarios_horarios_docentes` (`docente_horario_id`),
+  CONSTRAINT `fk_horarios_horarios_docentes` FOREIGN KEY (`docente_horario_id`) REFERENCES `docentes_horarios` (`docente_horario_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=685 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Dumping data for table `horarios`
---
+/*Data for the table `horarios` */
 
-INSERT INTO `horarios` (`horario_id`, `lunes`, `martes`, `miercoles`, `jueves`, `viernes`, `sabado`, `usuario_id`, `fecha`) VALUES
-(256, ' 06:00 ', '', '', '', '', '', 1, '2019-05-23'),
-(257, ' 07:00 ', '', '', ' 07:00 ', '', '', 1, '2019-05-23'),
-(258, ' 08:00 ', '', '', '', '', '', 1, '2019-05-23'),
-(259, ' 09:00 ', '', '', '', '', '', 1, '2019-05-23'),
-(260, ' 10:00 ', '', ' 10:00 ', ' 10:00 ', '', '', 1, '2019-05-23'),
-(261, ' 11:00 ', '', '', '', '', '', 1, '2019-05-23'),
-(262, '', '', '', '', '', '', 1, '2019-05-23'),
-(263, ' 13:00 ', '', '', '', '', '', 1, '2019-05-23'),
-(264, '', '', ' 14:00 ', '', ' 14:00 ', '', 1, '2019-05-23'),
-(265, '', '', '', '', '', '', 1, '2019-05-23'),
-(266, '', '', ' 16:00 ', '', '', ' 16:00 ', 1, '2019-05-23'),
-(267, '', '', '', '', '', '', 1, '2019-05-23'),
-(268, '', '', '', '', '', '', 1, '2019-05-23'),
-(269, '', '', '', '', '', '', 1, '2019-05-23'),
-(270, '', '', '', '', '', '', 1, '2019-05-23'),
-(271, '', '', '', '', '', '', 1, '2019-05-23'),
-(272, '', '', '', '', '', '', 1, '2019-05-23'),
-(273, '', '', '', '', '', '', 1, '2019-05-23'),
-(274, '', '', '', '', '', '', 1, '2019-05-23'),
-(275, '', '', '', '', '', '', 1, '2019-05-23'),
-(276, '', '', '', '', '', '', 1, '2019-05-23'),
-(277, '', '', '', '', '', '', 1, '2019-05-23'),
-(278, '', '', '', '', '', '', 1, '2019-05-23'),
-(279, '', '', '', '', '', '', 1, '2019-05-23'),
-(280, '', '', '', '', '', '', 1, '2019-05-23'),
-(281, '', '', '', '', '', '', 1, '2019-05-23'),
-(282, '', '', '', '', '', '', 1, '2019-05-23'),
-(283, '', '', '', '', '', '', 1, '2019-05-23'),
-(284, '', '', '', '', '', '', 1, '2019-05-23'),
-(285, '', '', '', '', '', '', 1, '2019-05-23'),
-(286, '', '', '', '', '', '', 1, '2019-05-23'),
-(287, '', '', '', '', '', '', 1, '2019-05-23'),
-(288, '', '', '', '', '', '', 1, '2019-05-23'),
-(289, '', '', '', '', '', '', 1, '2019-05-23');
+insert  into `horarios`(`horario_id`,`lunes`,`martes`,`miercoles`,`jueves`,`viernes`,`sabado`,`docente_horario_id`,`fecha`) values 
+(682,'sdfsd','sdfsd','sdfsd','sdfsd','23232','23232',27,'2019-05-26'),
+(683,'sdfsd','sdfsd','sdfsd','sdfsd','23232','23232',27,'2019-05-26');
 
--- --------------------------------------------------------
+/*Table structure for table `programas` */
 
---
--- Table structure for table `programas`
---
+DROP TABLE IF EXISTS `programas`;
 
 CREATE TABLE `programas` (
-  `programa_id` int(11) NOT NULL,
+  `programa_id` int(11) NOT NULL AUTO_INCREMENT,
   `programa_nombre` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `programa_semestre_numero` int(2) DEFAULT NULL,
   `programa_semestre_actual` int(2) DEFAULT NULL,
   `programa_fecha_inicio` date DEFAULT NULL,
   `programa_fecha_fin` date DEFAULT NULL,
-  `programa_codigo` int(5) DEFAULT NULL
+  `programa_codigo` int(5) DEFAULT NULL,
+  PRIMARY KEY (`programa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
+/*Data for the table `programas` */
 
---
--- Table structure for table `programas_asignaturas`
---
+/*Table structure for table `programas_asignaturas` */
+
+DROP TABLE IF EXISTS `programas_asignaturas`;
 
 CREATE TABLE `programas_asignaturas` (
-  `pa_id` int(11) NOT NULL,
+  `pa_id` int(11) NOT NULL AUTO_INCREMENT,
   `programa_id` int(11) DEFAULT NULL,
   `asignatura_id` int(11) DEFAULT NULL,
-  `semestre` int(2) DEFAULT NULL
+  `semestre` int(2) DEFAULT NULL,
+  PRIMARY KEY (`pa_id`),
+  KEY `fk_asignaturas_programas_asignaturas_idx` (`asignatura_id`),
+  KEY `fk_programas_programas_asignaturas_idx` (`programa_id`),
+  CONSTRAINT `fk_asignaturas_programas_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
+  CONSTRAINT `fk_programas_programas_asignaturas` FOREIGN KEY (`programa_id`) REFERENCES `programas` (`programa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
+/*Data for the table `programas_asignaturas` */
 
---
--- Table structure for table `roles`
---
+/*Table structure for table `roles` */
+
+DROP TABLE IF EXISTS `roles`;
 
 CREATE TABLE `roles` (
-  `rol_id` int(11) NOT NULL,
-  `rol` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `rol_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rol` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  PRIMARY KEY (`rol_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Dumping data for table `roles`
---
+/*Data for the table `roles` */
 
-INSERT INTO `roles` (`rol_id`, `rol`) VALUES
-(1, 'docente'),
-(2, 'administrador');
+insert  into `roles`(`rol_id`,`rol`) values 
+(1,'docente'),
+(2,'administrador');
 
--- --------------------------------------------------------
+/*Table structure for table `usuarios` */
 
---
--- Table structure for table `usuarios`
---
+DROP TABLE IF EXISTS `usuarios`;
 
 CREATE TABLE `usuarios` (
-  `usuario_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_nombre` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `usuario_apellido` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `usuario_documento` varchar(11) COLLATE utf8_spanish2_ci NOT NULL,
@@ -192,147 +158,144 @@ CREATE TABLE `usuarios` (
   `telefono` bigint(11) DEFAULT NULL,
   `correo` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `password` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `rol_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `rol_id` int(11) NOT NULL,
+  PRIMARY KEY (`usuario_id`),
+  KEY `fk_roles_usuarios_idx` (`rol_id`),
+  CONSTRAINT `fk_roles_usuarios` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Dumping data for table `usuarios`
---
+/*Data for the table `usuarios` */
 
-INSERT INTO `usuarios` (`usuario_id`, `usuario_nombre`, `usuario_apellido`, `usuario_documento`, `direccion`, `telefono`, `correo`, `password`, `rol_id`) VALUES
-(1, 'hans peter', 'castellar del rio', '1050957574', 'asdfsadfS', 312457854, 'hanspeter1512@gmail.com', '123456', 1),
-(2, 'juan pedro ', 'perez garcia', '123456', 'paraiso', 3625485, 'pedro@gmail.com', '123456', 1),
-(3, 'Edilberto', 'Navarro', '124365', 'calle ancha 987', 3224466, 'enavarro@ul.edu.co', '123456', 2);
+insert  into `usuarios`(`usuario_id`,`usuario_nombre`,`usuario_apellido`,`usuario_documento`,`direccion`,`telefono`,`correo`,`password`,`rol_id`) values 
+(1,'hans peter','castellar del rio','1050957574','asdfsadfS',312457854,'hanspeter1512@gmail.com','123456',1),
+(2,'juan pedro ','perez garcia','123456','paraiso',3625485,'pedro@gmail.com','123456',1),
+(3,'Edilberto','Navarro','124365','calle ancha 987',3224466,'enavarro@ul.edu.co','123456',2),
+(4,'sfsd','sdfsdf','23423','sdfsdf',234234,'hanspeter1512@gmail.com','1050957574',1),
+(5,'hans peter','castellar','1050957574','sdfdsfdsf',123456,'admin@gmail.com','123456',2);
 
---
--- Indexes for dumped tables
---
+/* Procedure structure for procedure `buscarHorarioXdocente` */
 
---
--- Indexes for table `asignaturas`
---
-ALTER TABLE `asignaturas`
-  ADD PRIMARY KEY (`asignatura_id`);
+/*!50003 DROP PROCEDURE IF EXISTS  `buscarHorarioXdocente` */;
 
---
--- Indexes for table `docentes_asignaturas`
---
-ALTER TABLE `docentes_asignaturas`
-  ADD PRIMARY KEY (`docente_asignatura_id`),
-  ADD KEY `fk_asignaturas_docentes_asignaturas_idx` (`asignatura_id`),
-  ADD KEY `fk_usuarios_docentes_asignaturas_idx` (`usuaio_id`);
+DELIMITER $$
 
---
--- Indexes for table `horarios`
---
-ALTER TABLE `horarios`
-  ADD PRIMARY KEY (`horario_id`),
-  ADD KEY `horarios_usuarios_usuario_id_fk` (`usuario_id`);
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `buscarHorarioXdocente`(IN `cedula` INT(11))
+    NO SQL
+SELECT lunes,martes,miercoles,jueves,viernes,sabado
+from horarios 
+WHERE usuario_id = cedula
+order BY fecha ASC limit 17 */$$
+DELIMITER ;
 
---
--- Indexes for table `programas`
---
-ALTER TABLE `programas`
-  ADD PRIMARY KEY (`programa_id`);
+/* Procedure structure for procedure `getDocentes` */
 
---
--- Indexes for table `programas_asignaturas`
---
-ALTER TABLE `programas_asignaturas`
-  ADD PRIMARY KEY (`pa_id`),
-  ADD KEY `fk_asignaturas_programas_asignaturas_idx` (`asignatura_id`),
-  ADD KEY `fk_programas_programas_asignaturas_idx` (`programa_id`);
+/*!50003 DROP PROCEDURE IF EXISTS  `getDocentes` */;
 
---
--- Indexes for table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`rol_id`);
+DELIMITER $$
 
---
--- Indexes for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`usuario_id`),
-  ADD KEY `fk_roles_usuarios_idx` (`rol_id`);
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDocentes`()
+    NO SQL
+SELECT usuario_id as id, usuario_documento as cedula,usuario_nombre as nombre  from usuarios WHERE rol_id = 1 */$$
+DELIMITER ;
 
---
--- AUTO_INCREMENT for dumped tables
---
+/* Procedure structure for procedure `getHorariosXdocente` */
 
---
--- AUTO_INCREMENT for table `asignaturas`
---
-ALTER TABLE `asignaturas`
-  MODIFY `asignatura_id` int(11) NOT NULL AUTO_INCREMENT;
+/*!50003 DROP PROCEDURE IF EXISTS  `getHorariosXdocente` */;
 
---
--- AUTO_INCREMENT for table `docentes_asignaturas`
---
-ALTER TABLE `docentes_asignaturas`
-  MODIFY `docente_asignatura_id` int(11) NOT NULL AUTO_INCREMENT;
+DELIMITER $$
 
---
--- AUTO_INCREMENT for table `horarios`
---
-ALTER TABLE `horarios`
-  MODIFY `horario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getHorariosXdocente`(IN `id_usuario` INT(11))
+    NO SQL
+SELECT lunes,martes,miercoles,jueves,viernes,sabado from horarios where docente_horario_id = id_usuario */$$
+DELIMITER ;
 
---
--- AUTO_INCREMENT for table `programas`
---
-ALTER TABLE `programas`
-  MODIFY `programa_id` int(11) NOT NULL AUTO_INCREMENT;
+/* Procedure structure for procedure `getIdHoraiosDocentes` */
 
---
--- AUTO_INCREMENT for table `programas_asignaturas`
---
-ALTER TABLE `programas_asignaturas`
-  MODIFY `pa_id` int(11) NOT NULL AUTO_INCREMENT;
+/*!50003 DROP PROCEDURE IF EXISTS  `getIdHoraiosDocentes` */;
 
---
--- AUTO_INCREMENT for table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `rol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+DELIMITER $$
 
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getIdHoraiosDocentes`(in id_docente int(11))
+select docente_horario_id from docentes_horarios where usuario_id = id_docente order by fecha DESC limit 1 */$$
+DELIMITER ;
 
---
--- Constraints for dumped tables
---
+/* Procedure structure for procedure `getRoles` */
 
---
--- Constraints for table `docentes_asignaturas`
---
-ALTER TABLE `docentes_asignaturas`
-  ADD CONSTRAINT `fk_asignaturas_docentes_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
-  ADD CONSTRAINT `fk_usuarios_docentes_asignaturas` FOREIGN KEY (`usuaio_id`) REFERENCES `usuarios` (`usuario_id`);
+/*!50003 DROP PROCEDURE IF EXISTS  `getRoles` */;
 
---
--- Constraints for table `horarios`
---
-ALTER TABLE `horarios`
-  ADD CONSTRAINT `horarios_usuarios_usuario_id_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`);
+DELIMITER $$
 
---
--- Constraints for table `programas_asignaturas`
---
-ALTER TABLE `programas_asignaturas`
-  ADD CONSTRAINT `fk_asignaturas_programas_asignaturas` FOREIGN KEY (`asignatura_id`) REFERENCES `asignaturas` (`asignatura_id`),
-  ADD CONSTRAINT `fk_programas_programas_asignaturas` FOREIGN KEY (`programa_id`) REFERENCES `programas` (`programa_id`);
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRoles`()
+select rol_id as id, rol from roles */$$
+DELIMITER ;
 
---
--- Constraints for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `fk_roles_usuarios` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`);
-COMMIT;
+/* Procedure structure for procedure `login` */
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!50003 DROP PROCEDURE IF EXISTS  `login` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `login`(IN `correo_par` VARCHAR(100), IN `pass` VARCHAR(100))
+    NO SQL
+SELECT * from usuarios WHERE `password` = pass AND correo = correo_par */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `regHorario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `regHorario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `regHorario`(IN `lunes_par` VARCHAR(45), IN `martes_par` VARCHAR(45), IN `miercoles_par` VARCHAR(45), IN `jueves_par` VARCHAR(45), IN `viernes_par` VARCHAR(45), IN `sabado_par` VARCHAR(45), IN `usuario_id_par` INT(11))
+    NO SQL
+INSERT into horarios (lunes,martes,miercoles,jueves,viernes,sabado,docente_horario_id,fecha)
+VALUES (lunes_par,martes_par,miercoles_par,jueves_par,viernes_par,sabado_par,usuario_id_par,NOW()) */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `regHorarioDocente` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `regHorarioDocente` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `regHorarioDocente`(in id_docente int(11))
+begin
+insert into docentes_horarios (usuario_id,fecha)
+      values (id_docente,now());
+select docente_horario_id from docentes_horarios order by docente_horario_id DESC limit 1;
+end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `regUsuarios` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `regUsuarios` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `regUsuarios`(
+                    in nombre varchar(45),
+                    in apellido varchar(45),
+                    in documento varchar(11),
+                    in direccion_par varchar(100),
+                    in telefono_par varchar(11),
+                    in correo_par varchar(100),
+                    in pass varchar(100),
+                    in rol int(11)
+                    )
+insert into usuarios (usuario_nombre,usuario_apellido,usuario_documento,direccion,telefono,correo,`password`,rol_id)
+                    values (
+                             nombre,
+                             apellido,
+                             documento,
+                             direccion_par,
+                             telefono_par,
+                             correo_par,
+                             pass,
+                             rol
+                     ) */$$
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
