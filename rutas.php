@@ -7,8 +7,17 @@
   	$cnt->{$accion}();
   }
     $controladores = array(
-                 "usuario" => array("index","regUsuario","usuarioeliminar","usuarioactualizar"),
-                 "admin" => array("home","login","PanelAdmin","horarios","getHorarios","buscarHorarioXdocente"),
+                 "usuario" => array("index","regUsuarios","usuarioeliminar","usuarioactualizar"),
+                 "admin" => array("home",
+                                  "login",
+                                  "PanelAdmin",
+                                  "horarios",
+                                  "getHorarios",
+                                 "buscarHorarioXdocente",
+                                 "docentes",
+                                   "asignaturas",
+                                    "programas",
+                                       "getRoles"),
                   "docente"=>array("regHorario","logout")
 
     

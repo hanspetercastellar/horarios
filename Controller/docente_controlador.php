@@ -8,19 +8,21 @@ class docente_controlador{
       $estado = false;
 
         $array = $_POST["datos"];
+        //aqui se almacena el id de la tabla que esta haciendo foranea de la tabla horarios
+        $id_docente_horario = docente_model::regHorarioProfesor($_SESSION['id_usuario']);
 
 
         for ($i=0; $i<= count($array)-1; $i++)
         {
 
-             docente_model::regHorario(
+           $estado =  docente_model::regHorario(
                 $array[$i][0],
                 $array[$i][1],
                 $array[$i][2],
                 $array[$i][3],
                 $array[$i][4],
                 $array[$i][5],
-                1
+                $id_docente_horario
 
             );
 
@@ -28,7 +30,7 @@ class docente_controlador{
 
         }
 
-
+        echo $estado;
     }
 
     public function logout()

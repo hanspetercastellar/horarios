@@ -96,7 +96,7 @@
              </table>
          </section>
          <section class="mt-5 hide" id="tablaOculta">
-             <table id="table" class="table table-sm table-responsive-sm table-responsive-xl table-responsive-md table-striped table-light table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
+             <table id="table2" class="table table-sm table-responsive-sm table-responsive-xl table-responsive-md table-striped table-light table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                  <thead>
                  <tr>
                      <th>HORA </th>
@@ -131,16 +131,69 @@
                 guardarHorario()
           })
 
-                cargarHoras()
-       getHorarios()
+                //cargarHoras()
+
+            getHorarios()
+
+
 
   }
 
   function getHorarios()
   {
+      let json= 0;
       $.post('?controlador=admin&accion=getHorarios',(response)=>{
-          console.log($.parseJSON(response));
+          //console.log(JSON.parse(response));
+          //json = JSON.parse(response)
+          var horas = [ "06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00" ]
+          console.log(response)
+          if(response!="null")
+          {
+
+              console.log(JSON.parse(response));
+              json = JSON.parse(response)
+
+              $(json).each((i,el)=>{
+                  $("#table tbody").append(`
+                         <tr>
+                            <td class="bg-secondary text-white" width="50"> ${horas[i]} </td>
+                            <td>${el.lunes} </td>
+                              <td>${el.martes} </td>
+                             <td> ${el.miercoles}</td>
+                             <td>${el.jueves} </td>
+                             <td>${el.viernes} </td>
+                           <td> ${el.sabado}</td>
+                         </tr>`);
+              });
+
+              $("#table tbody tr").each((i,el)=>{
+
+                  var td = $(el).find("td");
+
+                  if($($(td)[i]).text()==" ")
+                  {
+                      alert()
+                      $($(td)[i]).addClass("bg-success")
+                  }
+
+
+              })
+
+
+
+
+          }else{
+
+              cargarHoras()
+          }
+
+
+
       })
+
+
+
+
   }
 
     function cargarHoras()
@@ -151,39 +204,39 @@
             $("#table tbody").append(`
                          <tr>
                             <td> ${el} </td>
-                            <td></td>
-                              <td></td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
-                           <td></td>
+                            <td> </td>
+                              <td> </td>
+                             <td> </td>
+                             <td> </td>
+                             <td> </td>
+                           <td> </td>
                          </tr>`);
         });
 
         $("#table tbody tr").each((i,el)=>{
-            let tr = $(el).find("td");
+            let td = $(el).find("td");
             //alert(tr.length)
-            for (let i = 1; i<= tr.length; i++)
+            for (let i = 1; i<= td.length; i++)
             {
-                $($(tr)[i]).mouseover(()=>{
-                    $($(tr)[i]).addClass("bg-primary")
-                    $($(tr)[i]).css("cursor","pointer")
+                $($(td)[i]).mouseover(()=>{
+                    $($(td)[i]).addClass("bg-primary")
+                    $($(td)[i]).css("cursor","pointer")
 
                 });
-                $($(tr)[i]).mouseout(()=>{
-                    $($(tr)[i]).removeClass("bg-primary")
-                    $($(tr)[i]).css("cursor","pointer")
+                $($(td)[i]).mouseout(()=>{
+                    $($(td)[i]).removeClass("bg-primary")
+                    $($(td)[i]).css("cursor","pointer")
                 });
 
-                $($(tr)[i]).click(()=>{
-                    if ( $($(tr)[i]).hasClass('bg-success'))
+                $($(td)[i]).click(()=>{
+                    if ( $($(td)[i]).hasClass('bg-success'))
                     {
-                        $($(tr)[i]).removeClass("bg-success")
-                        $($(tr)[i]).text("")
+                        $($(td)[i]).removeClass("bg-success")
+                        $($(td)[i]).text("")
 
                     }else{
-                        $($(tr)[i]).text($($(tr)[0]).text())
-                        $($(tr)[i]).addClass("bg-success")
+                        $($(td)[i]).text($($(td)[0]).text())
+                        $($(td)[i]).addClass("bg-success")
                     }
 
                 });
@@ -202,8 +255,6 @@
         //inicializo esta variable de tipo Array (convierto la variable en un arreglo vacio);
         //para almacenar cada fila de la tabla de horarios
         var array = new Array();
-
-
         // accedo a el elemento tr de la tabla con id #table y recorro todas sus filas con la funcion jquery each.
         $("#table tbody tr").each((i,el)=>{
 
@@ -230,11 +281,17 @@
 
 
         })
-          localStorage.setItem("horarios",JSON.stringify(array))
+       //   localStorage.setItem("horarios",JSON.stringify(array))
+
         /*la funcion de jquery $.post() realiza una peticion ajax de tipo post. Recibe tres parametros; una cabecera la cual corresponde a la url
           ,las variables post que se envian en forma de objetos,y por ultipo una funcion callback, la cual maneja la respuesta del servidor */
             $.post("?controlador=docente&accion=regHorario",{"datos":array},function (response) {
                 console.log(response)
+
+                if(response)
+                {
+                    alert("Horario registrado")
+                }
 
             })
 

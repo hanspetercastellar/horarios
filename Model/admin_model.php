@@ -43,7 +43,7 @@ class admin_model{
 
              }else{
 
-                 echo 000 ;
+                 echo 0 ;
              }
 
 
@@ -73,9 +73,43 @@ class admin_model{
         $sth->bindParam(':id', $docente_id,PDO::PARAM_INT );
         $sth->execute();
         $count = $sth->rowCount();
-        $data = $sth->fetch(PDO::FETCH_ASSOC);
 
-        return $data;
+        if($count>0)
+        {
+
+            while($data = $sth->fetch())
+            {
+
+                $arrayHorarios[]=array(
+                    "lunes"=>$data["lunes"],
+                    "martes"=>$data["martes"],
+                    "miercoles"=>$data["miercoles"],
+                    "jueves"=>$data["jueves"],
+                    "viernes"=>$data["viernes"],
+                    "sabado"=>$data["sabado"]
+                );
+
+            }
+
+            return $arrayHorarios;
+
+        }
+    }
+
+    public function getIdHoraiosDocentes($id_docente)
+    {
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql = "CALL getIdHoraiosDocentes(:id_docente)";
+        $sth =$conect->prepare($sql);
+        $sth->bindParam(':id_docente', $id_docente,PDO::PARAM_INT );
+        $sth->execute();
+        $count = $sth->rowCount();
+
+        return $sth->fetch(PDO::FETCH_COLUMN)[0];
+
     }
 
     public function getDocentes()
@@ -136,6 +170,31 @@ class admin_model{
         return  $horarios;
 
     }
+
+    public function getRoles()
+    {
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql = "CALL getRoles()";
+
+        $sth = $conect->prepare($sql);
+
+        $sth->execute();
+        while ($data = $sth->fetch())
+        {
+            $roles[]=array(
+                "id"=>$data["id"],
+                "rol"=>$data["rol"]
+            );
+
+
+        }
+        return $roles;
+    }
+
+
 
 
 }

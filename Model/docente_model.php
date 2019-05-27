@@ -69,5 +69,43 @@ class docente_model{
         }
 
     }
+    
+    public function regHorarioProfesor($docente)
+    {
+
+        $bd = new conexion();
+        $c  = $bd->conectar();
+
+        if($c==null)
+        {
+            echo "conexion nula";
+        }
+        else{
+
+            try{
+
+                $sql='CALL regHorarioDocente(:docente)';
+                $sth=$c->prepare($sql);
+                $sth->bindParam(':docente', $docente, PDO::PARAM_INT);
+                $sth->execute();
+
+               $id = $sth->fetch(PDO::FETCH_COLUMN)[0];
+
+            }catch (PDOException $e){
+
+                die("Error ocurred:" . $e->getMessage());
+                $estado = false;
+            }
+
+            //$bd->cerrar();
+
+
+            return $id;
+
+
+        }
+
+
+    }
 
 }

@@ -62,7 +62,7 @@
 
     function  buscarHorarioXdocente(cc)
     {
-
+        var horas = [ "06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00" ]
         $.post('?controlador=admin&accion=buscarHorarioXdocente',{"cc":cc},(response)=>{
 
             let json = $.parseJSON(response);
@@ -72,7 +72,8 @@
 
 
                 let tr = ` <tr>
-                              <td>${ json[i].lunes } </td>
+                              <td> ${horas[i]} </td>
+                              <td>${ json[i].lunes} </td>
                              <td>${ json[i].martes }</td>
                               <td>${ json[i].miercoles }</td>
                               <td>${ json[i].jueves }</td>

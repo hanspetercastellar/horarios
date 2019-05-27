@@ -38,7 +38,9 @@ class admin_controlador{
     public function getHorarios()
     {
 
-        $horarios = admin_model::getHorariosXdocente($_SESSION["id_usuario"]);
+        $id = admin_model::getIdHoraiosDocentes($_SESSION["id_usuario"]);
+
+        $horarios = admin_model::getHorariosXdocente($id);
 
         echo  json_encode($horarios);
 
@@ -72,6 +74,37 @@ class admin_controlador{
         $horarios = admin_model::buscarHorarioXdocente($cedula);
 
         echo json_encode($horarios);
+    }
+
+    public function docentes()
+    {
+        require_once "View/header.php" ;
+        require_once "View/template_navbar.php";
+        require_once "View/admin/docentes.php";
+
+    }
+    public function asignaturas()
+    {
+        require_once "View/header.php" ;
+        require_once "View/template_navbar.php";
+        require_once "View/admin/asignaturas.php";
+
+    }
+    public function programas()
+    {
+        require_once "View/header.php" ;
+        require_once "View/template_navbar.php";
+        require_once "View/admin/programas.php";
+
+    }
+
+    public function getRoles()
+    {
+
+        $roles = admin_model::getRoles();
+
+        echo json_encode($roles);
+
     }
 
 }

@@ -15,13 +15,13 @@
                         <a class="nav-link" href="?controlador=admin&accion=horarios">Horarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Docentes</a>
+                        <a class="nav-link" href="?controlador=admin&accion=docentes">Docentes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Asignaturas</a>
+                        <a class="nav-link" href="?controlador=admin&accion=asignaturas">Asignaturas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Programas</a>
+                        <a class="nav-link" href="?controlador=admin&accion=programas">Programas</a>
                     </li>
             <?php } ?>
 		</ul>

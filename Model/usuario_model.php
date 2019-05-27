@@ -1,47 +1,50 @@
 <?php
-class   usuario_model{
+class    usuario_model{
   /////////////////////////////////////////////////////////////////////////
 	public function __construct(){}
 
   //////////////////////////////INSERTAR///////////////////////////////////
-	public static function regUsuario($login, $pass, $nom, $ced, $fec){
+	public static function regUsuarios($nombre, $apellido, $documento, $direccion, $telefono, $correo,$pass,$rol){
 		$bd = new conexion();
 		$c  = $bd->conectar();
     if($c==null){
       echo 'CONEXION NULA';
 
     }else{
-      
-       
+
+
            try {
-           
-                
-                $sql='CALL insertarusuario(:login,:pass,:nom,:ced,:fec)';
+
+
+                $sql='CALL regUsuarios(:nombre,:apellido,:documento,:direccion,:telefono,:correo,:pass,:rol)';
                 $sth=$c->prepare($sql);
-                $sth->bindParam(':login', $login, PDO::PARAM_STR,20);
-                $sth->bindParam(':pass',$pass, PDO::PARAM_STR,20);
-                $sth->bindParam(':nom',$nom , PDO::PARAM_STR,20);
-                $sth->bindParam(':ced',$ced, PDO::PARAM_STR,20);
-                $sth->bindParam(':fec',$fec, PDO::PARAM_STR,20);
-               
-               
-                $sth->execute();  
+                $sth->bindParam(':nombre', $nombre, PDO::PARAM_STR,45);
+                $sth->bindParam(':apellido',$apellido, PDO::PARAM_STR,45);
+                $sth->bindParam(':documento',$documento , PDO::PARAM_STR,11);
+                $sth->bindParam(':direccion',$direccion, PDO::PARAM_STR,100);
+               $sth->bindParam(':telefono',$telefono, PDO::PARAM_STR,11);
+               $sth->bindParam(':correo',$correo, PDO::PARAM_STR,100);
+                $sth->bindParam(':pass',$pass, PDO::PARAM_STR,100);
+               $sth->bindParam(':rol',$rol, PDO::PARAM_INT);
+
+
+                $sth->execute();
                 //echo "registro exitoso correctamente";
               }
               catch (PDOException $ex) {
                 die("Error occurred:" . $ex->getMessage());
               $estado=false;
-              } 
+              }
               $bd->cerrar();
               $estado=true;
               return $estado;
-             
+
 
             }
 
-    
 
-       
+
+
 	}
     /////////////////////////////////////////////////////////////////////////
 
