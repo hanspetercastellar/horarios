@@ -7,7 +7,7 @@
   	$cnt->{$accion}();
   }
     $controladores = array(
-                 "usuario" => array("index","regUsuarios","usuarioeliminar","usuarioactualizar"),
+                 "usuario" => array("index","regUsuarios","verificarDocumento","verificarCorreo","getUsuarios"),
                  "admin" => array("home",
                                   "login",
                                   "PanelAdmin",

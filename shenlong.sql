@@ -57,7 +57,7 @@ CREATE TABLE `docentes_horarios` (
   PRIMARY KEY (`docente_horario_id`),
   KEY `fk_usuarios_horarios` (`usuario_id`),
   CONSTRAINT `fk_usuarios_horarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `docentes_horarios` */
 
@@ -67,7 +67,8 @@ insert  into `docentes_horarios`(`docente_horario_id`,`usuario_id`,`fecha`) valu
 (28,1,'2019-05-26'),
 (29,1,'2019-05-26'),
 (30,1,'2019-05-26'),
-(31,1,'2019-05-27');
+(31,1,'2019-05-27'),
+(32,4,'2019-05-27');
 
 /*Table structure for table `horarios` */
 
@@ -81,12 +82,12 @@ CREATE TABLE `horarios` (
   `jueves` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `viernes` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `sabado` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `docente_horario_id` int(1) DEFAULT NULL,
+  `docente_horario_id` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`horario_id`),
   KEY `fk_horarios_horarios_docentes` (`docente_horario_id`),
   CONSTRAINT `fk_horarios_horarios_docentes` FOREIGN KEY (`docente_horario_id`) REFERENCES `docentes_horarios` (`docente_horario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=685 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=684 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `horarios` */
 
@@ -162,7 +163,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`usuario_id`),
   KEY `fk_roles_usuarios_idx` (`rol_id`),
   CONSTRAINT `fk_roles_usuarios` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `usuarios` */
 
@@ -171,7 +172,9 @@ insert  into `usuarios`(`usuario_id`,`usuario_nombre`,`usuario_apellido`,`usuari
 (2,'juan pedro ','perez garcia','123456','paraiso',3625485,'pedro@gmail.com','123456',1),
 (3,'Edilberto','Navarro','124365','calle ancha 987',3224466,'enavarro@ul.edu.co','123456',2),
 (4,'sfsd','sdfsdf','23423','sdfsdf',234234,'hanspeter1512@gmail.com','1050957574',1),
-(5,'hans peter','castellar','1050957574','sdfdsfdsf',123456,'admin@gmail.com','123456',2);
+(5,'hans peter','castellar','1050957574','sdfdsfdsf',123456,'admin@gmail.com','123456',2),
+(6,'victor','nieto','1045705832','calle falsa',32541552,'victor@gmail.com','123456',2),
+(7,'juan perez','garcia marquez','123456789','calle sin nombre',123456,'juan@gmail.com','123456',2);
 
 /* Procedure structure for procedure `buscarHorarioXdocente` */
 
@@ -227,6 +230,25 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRoles`()
 select rol_id as id, rol from roles */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getUsuarios` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getUsuarios` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUsuarios`()
+select usuario_nombre as nombre,
+           usuario_apellido as apellido,
+           usuario_documento as documento,
+           direccion,
+           telefono,
+           correo,
+           rol
+    from usuarios 
+    join roles 
+    using (rol_id) */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `login` */
@@ -293,6 +315,26 @@ insert into usuarios (usuario_nombre,usuario_apellido,usuario_documento,direccio
                              pass,
                              rol
                      ) */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `verificarCorreo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `verificarCorreo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarCorreo`(in correo_par varchar(100))
+select count(*) from usuarios where correo = correo_par */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `verificarDocumento` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `verificarDocumento` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `verificarDocumento`(in documento varchar(11))
+select count(*) from usuarios where usuario_documento = documento */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

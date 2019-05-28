@@ -77,7 +77,7 @@
     {
 
         getRoles()
-
+        cargarTabla()
        $("#enviar").click((e)=>{
            e.preventDefault()
            //serializeArray convierte los datos en un arreglo
@@ -103,6 +103,8 @@
                {
 
                    alert("Usuario registrado conexito")
+                   cargarTabla()
+                   $("#form")[0].reset();
                }else{
 
                    alert("Error usuario no registrado")
@@ -113,7 +115,17 @@
 
 
 
-       })
+       });
+
+        $("#documento").change(()=>{
+
+            verificarDocumento()
+        })
+
+        $("#correo").change(()=>{
+
+            verificarCorreo()
+        })
 
     }
 
@@ -141,7 +153,10 @@
      {
 
          $("#usuarios_table").DataTable({
+             "destroy":true,
              dom: 'Bfrtip',
+
+
              buttons: [
                  'copy', 'csv', 'excel', 'pdf', 'print'
              ],
@@ -154,12 +169,58 @@
 
              },
              "columns": [
-                 {"data": "estanque"},
-                 {"data": "cantidad"},
-                 {"data": "peso"},
-                 {"data": "promedio"},
-                 {"data": "eliminar"}
+                 {"data": "rol"},
+                 {"data": "documento"},
+                 {"data": "nombre"},
+                 {"data": "apellido"},
+                 {"data": "direccion"},
+                 {"data": "telefono"},
+                 {"data": "correo"}
              ],
          })
      }
+     function verificarDocumento()
+     {
+
+         var doc = $("#documento").val()
+
+         $.post("?controlador=usuario&accion=verificarDocumento",{"doc":doc},(response)=>{
+
+              if(response >"0" )
+              {
+
+                  alert("Disculpe, ya existe un usuario con este documento")
+                  $("#enviar").attr('disabled','disabled')
+                  $("#documento").focus()
+              }else{
+
+                  $("#enviar").removeAttr('disabled')
+
+              }
+
+         })
+
+     }
+    function verificarCorreo()
+    {
+
+        var correo = $("#correo").val()
+
+        $.post("?controlador=usuario&accion=verificarCorreo",{"correo":correo},(response)=>{
+
+            if(response >"0" )
+            {
+
+                alert("Disculpe, ya existe un usuario con este correo")
+                $("#enviar").attr('disabled','disabled')
+                $("#correo").focus()
+            }else{
+
+                $("#enviar").removeAttr('disabled')
+
+            }
+
+        });
+
+    }
 </script>

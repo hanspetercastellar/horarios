@@ -35,7 +35,38 @@ class usuario_controlador{
         }
 	}
 
+	public function verificarDocumento()
+    {
+
+        $doc = $_POST["doc"];
+
+        $existe= usuario_model::verificarDocumento($doc);
+
+        echo $existe;
+    }
+
+    public function verificarCorreo()
+    {
+
+        $correo = $_POST["correo"];
+
+        $existe= usuario_model::verificarCorreo($correo);
+
+        echo $existe;
+    }
+
+    public function getUsuarios()
+    {
+
+        $usuarios = usuario_model::getUsuarios();
+
+        echo json_encode($usuarios);
+
+    }
 
 
 
-	}
+
+
+
+}

@@ -6,28 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="968d9d96-c4c1-4c15-a733-ce0bcccdb491" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Resource/css/jquery.dataTable.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/buttons.flash.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/buttons.html5.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/buttons.print.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/dataTables.buttons.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/jquery.dataTable.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/jszip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/pdfmake.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resource/js/vfs_fonts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/View/admin/docentes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/admin/asignaturas.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/View/admin/programas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/admin_controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/admin_controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/docente_controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/docente_controlador.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller/usuario_controlador.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/usuario_controlador.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/admin_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/admin_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/docente_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/docente_model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/usuario_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/usuario_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/admin/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/admin/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/admin/horarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/admin/horarios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/template_navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/template_navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/admin/docentes.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/admin/docentes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rutas.php" beforeDir="false" afterPath="$PROJECT_DIR$/rutas.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,17 +39,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/admin_controlador.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="105" column="31" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+            <state relative-caret-position="238">
+              <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/View/admin/programas.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="59" selection-start-line="1" selection-start-column="59" selection-end-line="1" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/View/admin/asignaturas.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/View/admin/docentes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="158" column="34" selection-start-line="158" selection-start-column="34" selection-end-line="158" selection-end-column="34" />
+            <state relative-caret-position="17">
+              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -92,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/rutas.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+              <caret line="9" column="109" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="109" />
             </state>
           </provider>
         </entry>
@@ -100,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model/admin_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3332">
-              <caret line="196" selection-start-line="196" selection-end-line="196" />
+            <state relative-caret-position="17">
+              <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -109,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Model/usuario_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+            <state relative-caret-position="437">
+              <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -118,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/usuario_controlador.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="454">
+              <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -162,16 +160,17 @@
         <option value="$PROJECT_DIR$/Controller/admin_controlador.php" />
         <option value="$PROJECT_DIR$/Model/admin_model.php" />
         <option value="$PROJECT_DIR$/rutas.php" />
-        <option value="$PROJECT_DIR$/Model/usuario_model.php" />
         <option value="$PROJECT_DIR$/Controller/usuario_controlador.php" />
+        <option value="$PROJECT_DIR$/Model/usuario_model.php" />
         <option value="$PROJECT_DIR$/View/admin/docentes.php" />
+        <option value="$PROJECT_DIR$/View/admin/programas.php" />
       </list>
     </option>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="1295" />
     <option name="height" value="745" />
@@ -274,16 +273,18 @@
       <workItem from="1558657490565" duration="9252000" />
       <workItem from="1558823020621" duration="9559000" />
       <workItem from="1558877539579" duration="32741000" />
+      <workItem from="1558972418407" duration="6079000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147065000" />
+    <option name="totallyTimeSpent" value="153144000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21558245" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21558245" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -296,7 +297,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23027375" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.23027375" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="12" weight="0.3295325" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -427,13 +428,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/View/admin/horarios.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="3" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Resource/js/jquery.dataTable.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="539">
@@ -525,45 +519,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/admin_controlador.php">
+    <entry file="file://$PROJECT_DIR$/View/admin/horarios.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="105" column="31" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+        <state>
+          <caret selection-end-line="3" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/admin_model.php">
+    <entry file="file://$PROJECT_DIR$/Controller/usuario_controlador.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="196" selection-start-line="196" selection-end-line="196" />
+        <state relative-caret-position="454">
+          <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rutas.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+          <caret line="9" column="109" selection-start-line="9" selection-start-column="109" selection-end-line="9" selection-end-column="109" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Model/usuario_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        <state relative-caret-position="437">
+          <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/usuario_controlador.php">
+    <entry file="file://$PROJECT_DIR$/Model/admin_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="17">
+          <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/admin/asignaturas.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/admin_controlador.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/View/admin/docentes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="158" column="34" selection-start-line="158" selection-start-column="34" selection-end-line="158" selection-end-column="34" />
+        <state relative-caret-position="17">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/admin/programas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="59" selection-start-line="1" selection-start-column="59" selection-end-line="1" selection-end-column="59" />
         </state>
       </provider>
     </entry>
