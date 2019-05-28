@@ -17,7 +17,8 @@
                                  "docentes",
                                    "asignaturas",
                                     "programas",
-                                       "getRoles"),
+                                       "getRoles",
+                                        "datosDocente"),
                   "docente"=>array("regHorario","logout")
 
     

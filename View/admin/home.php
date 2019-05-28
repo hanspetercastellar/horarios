@@ -75,6 +75,7 @@
                  </div>
              </div>
          </div>
+         <hr/>
          <section class="mt-5">
              <table id="table" class="table table-sm table-responsive-sm table-responsive-xl table-responsive-md table-striped table-light table-bordered table-responsive-lg table-responsive-md table-responsive-sm">
                  <thead>
@@ -119,6 +120,9 @@
 <script>
     var year = new Date();
    window.onload= function () {
+
+       //esta funcion carga la informacion del docente
+
           $("#tablaOculta").addClass("d-none")
          //console.log($("#id_docente").val())
           var currenYear = year.getFullYear();
@@ -149,7 +153,6 @@
           console.log(response)
           if(response!="null")
           {
-
               console.log(JSON.parse(response));
               json = JSON.parse(response)
 
@@ -178,7 +181,17 @@
 
 
               })
+              $("#table").DataTable({
+                  "lengthChange": false,
+                  "paging": false,
+                  "destroy":true,
+                  dom: 'Bfrtip',
 
+
+                  buttons: [
+                      'copy', 'csv', 'excel', 'pdf', 'print'
+                  ],
+              });
 
 
 
@@ -186,13 +199,7 @@
 
               cargarHoras()
           }
-
-
-
       })
-
-
-
 
   }
 
@@ -245,6 +252,18 @@
             }
 
         });
+        $("#table").DataTable({
+            "lengthChange": false,
+            "paging": false,
+            "destroy":true,
+            dom: 'Bfrtip',
+
+
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+        });
+
     }
 
 /*esta funcion javaScript es la encargada de recorrer la tabla de horarios guardando cada fila de la tabla en una matriz para posteriormente

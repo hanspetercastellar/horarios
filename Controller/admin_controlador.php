@@ -106,5 +106,16 @@ class admin_controlador{
         echo json_encode($roles);
 
     }
+    public function datosDocente()
+    {
+        $id = $_POST["id"];
+        $datos = admin_model::getDatosPersonales($id);
+        $asignaturas = admin_model::getAsignaturas($id);
 
+        $array =array($datos,$asignaturas);
+
+        echo json_encode($array);
+
+
+    }
 }

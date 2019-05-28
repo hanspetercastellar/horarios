@@ -57,6 +57,7 @@
     <div class="container">
         <table id="usuarios_table" class="table table-sm table-striped">
             <thead>
+            <tr>
                <th>Rol</th>
                <th>Documento</th>
                <th>Nombre</th>
@@ -64,7 +65,11 @@
                <th>Direccion</th>
                <th>Telefono</th>
                <th>Correo</th>
+            </tr>
             </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
 

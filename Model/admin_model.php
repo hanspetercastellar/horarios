@@ -144,11 +144,11 @@ class admin_model{
     {
         $db = new Conexion();
         $conect = $db->conectar();
-
+        $id = intval($cedula);
         $sql= "CALL buscarHorarioXdocente(:id)";
         //$hash_password= md5( $password); //Password encryption
         $sth =$conect->prepare($sql);
-        $sth->bindParam(':id', $cedula,PDO::PARAM_INT );
+        $sth->bindParam(':id', $id,PDO::PARAM_INT );
         $sth->execute();
         $count = $sth->rowCount();
         while ($data = $sth->fetch())
@@ -192,6 +192,45 @@ class admin_model{
 
         }
         return $roles;
+    }
+
+
+
+    public function getDatosPersonales($id)
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $id = intval($id);
+        $sql= "CALL getInfoDocente(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->bindParam(':id', $id,PDO::PARAM_INT );
+        $datos->execute();
+        $data = $datos->fetch(PDO::FETCH_OBJ);
+
+           return $data;
+    }
+
+    public function getAsignaturas($id)
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $id = intval($id);
+        $sql= "CALL getAsignaturasXdocentes(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->bindParam(':id', $id,PDO::PARAM_INT );
+        $datos->execute();
+
+        while ($data = $datos->fetch())
+        {
+            $asignaturas[]= array("asignatura"=>$data["asignatura"]);
+
+
+        }
+
+        return $asignaturas;
+
     }
 
 
