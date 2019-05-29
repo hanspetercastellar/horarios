@@ -222,6 +222,7 @@ class admin_model{
         $datos->bindParam(':id', $id,PDO::PARAM_INT );
         $datos->execute();
 
+        $asignaturas=array();
         while ($data = $datos->fetch())
         {
             $asignaturas[]= array("asignatura"=>$data["asignatura"]);

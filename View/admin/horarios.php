@@ -118,8 +118,9 @@
 
               $.post("?controlador=admin&accion=datosDocente",{"id":$("#docente").val()},(response)=>{
 
-                  var json = JSON.parse(response)
 
+                  console.log(response)
+                  var json = JSON.parse(response)
                   $("#nombre").val(json[0].nombre)
                   $("#apellido").val(json[0].apellido)
                   $("#cedula").val(json[0].documento)

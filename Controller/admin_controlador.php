@@ -61,9 +61,15 @@ class admin_controlador{
 
     public function horarios()
     {
-        require_once "View/header.php" ;
-        require_once "View/template_navbar.php";
-        require_once "View/admin/horarios.php";
+        if(isset($_SESSION["rol"])) {
+            require_once "View/header.php";
+            require_once "View/template_navbar.php";
+            require_once "View/admin/horarios.php";
+        }else{
+
+            header("location:/horarios/");
+
+        }
 
     }
 
@@ -78,24 +84,44 @@ class admin_controlador{
 
     public function docentes()
     {
-        require_once "View/header.php" ;
-        require_once "View/template_navbar.php";
-        require_once "View/admin/docentes.php";
+        if(isset($_SESSION["rol"])) {
+
+            require_once "View/header.php";
+            require_once "View/template_navbar.php";
+            require_once "View/admin/docentes.php";
+
+        }else{
+
+            header("location:/horarios/");
+
+        }
 
     }
     public function asignaturas()
     {
-        require_once "View/header.php" ;
-        require_once "View/template_navbar.php";
-        require_once "View/admin/asignaturas.php";
+        if(isset($_SESSION["rol"])) {
 
+            require_once "View/header.php";
+            require_once "View/template_navbar.php";
+            require_once "View/admin/asignaturas.php";
+        }else{
+
+            header("location:/horarios/");
+
+        }
     }
     public function programas()
     {
-        require_once "View/header.php" ;
-        require_once "View/template_navbar.php";
-        require_once "View/admin/programas.php";
+        if(isset($_SESSION["rol"])) {
 
+            require_once "View/header.php";
+            require_once "View/template_navbar.php";
+            require_once "View/admin/programas.php";
+        }else{
+
+            header("location:/horarios/");
+
+        }
     }
 
     public function getRoles()

@@ -310,6 +310,7 @@
                 if(response)
                 {
                     alert("Horario registrado")
+                    getHorarios()
                 }
 
             })

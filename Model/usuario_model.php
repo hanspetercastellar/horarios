@@ -139,7 +139,8 @@ class    usuario_model{
                                      "documento"=>$dato["documento"],
                                       "direccion"=>$dato["direccion"],
                                       "telefono"=>$dato["telefono"],
-                                      "correo"=>$dato["correo"]
+                                      "correo"=>$dato["correo"],
+                                       "eliminar"=>'<button type="button" class="btn btn-danger">X</button>'
                                 );
                 }
 

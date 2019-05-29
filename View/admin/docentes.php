@@ -65,6 +65,7 @@
                <th>Direccion</th>
                <th>Telefono</th>
                <th>Correo</th>
+                <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
@@ -180,7 +181,8 @@
                  {"data": "apellido"},
                  {"data": "direccion"},
                  {"data": "telefono"},
-                 {"data": "correo"}
+                 {"data": "correo"},
+                 {"data": "eliminar"}
              ],
          })
      }
