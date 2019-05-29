@@ -161,7 +161,7 @@ class admin_controlador{
 
         $eliminado = admin_model::eliminarPrograma($id);
 
-        return $eliminado;
+       echo $eliminado;
 
     }
 }

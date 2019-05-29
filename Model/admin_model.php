@@ -151,6 +151,7 @@ class admin_model{
         $sth->bindParam(':id', $id,PDO::PARAM_INT );
         $sth->execute();
         $count = $sth->rowCount();
+        $horarios = array();
         while ($data = $sth->fetch())
         {
             $horarios[]=array(
@@ -260,6 +261,23 @@ class admin_model{
            $programas = array("data"=>$programas);
 
            return $programas;
+
+    }
+
+    public function eliminarPrograma($id)
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $id = intval($id);
+        $sql= "CALL deleteProgramas(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->bindParam(':id', $id,PDO::PARAM_INT );
+          $deleted = $datos->execute();
+
+
+        return $deleted;
+
 
     }
 

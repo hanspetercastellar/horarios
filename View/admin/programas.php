@@ -52,6 +52,13 @@
     function cargarTabla()
     {
        $("#table").DataTable({
+           "destroy":true,
+           dom: 'Bfrtip',
+
+
+           buttons: [
+               'copy', 'csv', 'excel', 'pdf', 'print'
+           ],
 
            ajax:{
                method:"get",
@@ -70,6 +77,17 @@
 
     }
 
+     function regPrograma(programa)
+        {
+            $.post("?controlador=admin&accion=regPrograma",{"dato":programa},(response)=>{
+
+
+
+            })
+
+
+        }
+
     function eliminar(id)
     {
         var option = confirm("Desea eliminar este registro?");
@@ -77,7 +95,8 @@
         {
             $.post("?controlador=admin&accion=eliminarPrograma",{"id":id},(response)=>{
 
-                alert(response)
+
+                cargarTabla()
             })
         }
 
