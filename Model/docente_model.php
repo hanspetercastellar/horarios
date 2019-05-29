@@ -30,8 +30,6 @@ class docente_model{
     public function regHorario($lunes,$martes,$miercoles,$jueves,$viernes,$sabado,$docente)
     {
 
-
-
         $bd = new conexion();
         $c  = $bd->conectar();
 
@@ -67,6 +65,48 @@ class docente_model{
 
 
         }
+
+    }
+
+    public function updateHorario($lunes,$martes,$miercoles,$jueves,$viernes,$sabado,$docente)
+    {
+        $bd = new conexion();
+        $c  = $bd->conectar();
+        // echo   var_dump($lunes);die;
+        if($c==null)
+        {
+            echo "conexion nula";
+        }
+        else{
+
+            try{
+
+                $sql='CALL updateHorario(:lunes,:martes,:miercoles,:jueves,:viernes,:sabado,:docente)';
+                $sth=$c->prepare($sql);
+                $sth->bindParam(':lunes', $lunes, PDO::PARAM_STR,45);
+                $sth->bindParam(':martes',$martes, PDO::PARAM_STR,45);
+                $sth->bindParam(':miercoles',$miercoles , PDO::PARAM_STR,45);
+                $sth->bindParam(':jueves',$jueves, PDO::PARAM_STR,45);
+                $sth->bindParam(':viernes',$viernes, PDO::PARAM_STR,45);
+                $sth->bindParam(':sabado',$sabado, PDO::PARAM_STR,45);
+                $sth->bindParam(':docente', $docente, PDO::PARAM_INT);
+                $sth->execute();
+
+            }catch (PDOException $e){
+
+                die("Error ocurred:" . $e->getMessage());
+                $estado = false;
+            }
+
+            $bd->cerrar();
+
+            $estado=true;
+            echo $estado;
+
+
+        }
+
+
 
     }
     
@@ -105,6 +145,22 @@ class docente_model{
 
         }
 
+
+    }
+
+    public function getIdHoraiosDocentes($id_docente)
+    {
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql = "CALL getIdHoraiosDocentes(:id_docente)";
+        $sth =$conect->prepare($sql);
+        $sth->bindParam(':id_docente', $id_docente,PDO::PARAM_INT );
+        $sth->execute();
+        $count = $sth->rowCount();
+
+        return $sth->fetch(PDO::FETCH_COLUMN)[0];
 
     }
 

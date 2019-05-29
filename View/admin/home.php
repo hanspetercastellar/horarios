@@ -67,11 +67,15 @@
              <div class="col">
                  <div class="row justify-content-end">
                      <div class="col-sm-2 col-md-2 col-md-2">
-                         <button class="btn btn-sm btn-secondary">Resetear</button>
+                         <button  class="btn btn-sm btn-secondary d-none" id="editar">Editar horario</button>
                      </div>
                      <div class="col-sm-4 col-md-4 col-md-4">
                          <button class="btn btn-sm btn-success" id="guardar">Guardar horario</button>
                      </div>
+                     <div class="col-sm-2 col-md-2 col-md-2">
+                         <button  class="btn btn-sm btn-primary d-none" id="update">Actualizar</button>
+                     </div>
+
                  </div>
              </div>
          </div>
@@ -135,9 +139,21 @@
                 guardarHorario()
           })
 
+       $("#editar").click(()=>{
+
+           recorrerTabla()
+           $("#update").removeClass("d-none");
+       })
+
                 //cargarHoras()
 
-            getHorarios()
+                getHorarios()
+
+       $("#update").click(()=>{
+
+           updateHorario()
+
+       })
 
 
 
@@ -153,6 +169,9 @@
           console.log(response)
           if(response!="null")
           {
+              $("#guardar").addClass("d-none");
+              $("#editar").removeClass("d-none");
+
               console.log(JSON.parse(response));
               json = JSON.parse(response)
 
@@ -220,6 +239,25 @@
                          </tr>`);
         });
 
+        recorrerTabla()
+
+        $("#table").DataTable({
+            "lengthChange": false,
+            "paging": false,
+            "destroy":true,
+            dom: 'Bfrtip',
+
+
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+        });
+
+    }
+
+    function recorrerTabla()
+    {
+
         $("#table tbody tr").each((i,el)=>{
             let td = $(el).find("td");
             //alert(tr.length)
@@ -252,18 +290,6 @@
             }
 
         });
-        $("#table").DataTable({
-            "lengthChange": false,
-            "paging": false,
-            "destroy":true,
-            dom: 'Bfrtip',
-
-
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-        });
-
     }
 
 /*esta funcion javaScript es la encargada de recorrer la tabla de horarios guardando cada fila de la tabla en una matriz para posteriormente
@@ -319,10 +345,59 @@
 
 
     }
+    function updateHorario()
+    {
+        //inicializo esta variable de tipo Array (convierto la variable en un arreglo vacio);
+        //para almacenar cada fila de la tabla de horarios
+        var array = new Array();
+        // accedo a el elemento tr de la tabla con id #table y recorro todas sus filas con la funcion jquery each.
+        $("#table tbody tr").each((i,el)=>{
+
+            //con let creo la variable td que contiene cada celda de la fila
+            let td = $(el).find("td");
+            /*A continiacion almaceno en sus respectivas variables las horas disponibles y las no disponibles para posteriormente crear un arreglo por
+              cada iteracion del ciclo each */
+            //nota: tener en cuenta que el ciclo se repite de acuerdo al numero de filas de la tabla
+
+
+            var lunes = $($(td)[1]).text();//Accede a el texto de la  celda numero 1 de cada fila, la cual equivale a el dia lunes
+            var martes = $($(td)[2]).text();
+            var miercoles = $($(td)[3]).text();
+            var jueves = $($(td)[4]).text();
+            var viernes = $($(td)[5]).text();
+            var sabado = $($(td)[6]).text();
+
+            //una vez obtenido todos los valores de cada celda por dia, se crea un arreglo por cada fila.
+            var horasDisponibles = new Array(lunes,martes,miercoles,jueves,viernes,sabado)
+
+            array.push(horasDisponibles);//en esta linea  agregamos con push el nuevo arreglo a la matriz que almacena todas las horas de todos los dias
+
+
+
+        })
+        //   localStorage.setItem("horarios",JSON.stringify(array))
+
+        /*la funcion de jquery $.post() realiza una peticion ajax de tipo post. Recibe tres parametros; una cabecera la cual corresponde a la url
+          ,las variables post que se envian en forma de objetos,y por ultipo una funcion callback, la cual maneja la respuesta del servidor */
+        $.post("?controlador=docente&accion=updateHorario",{"datos":array},function (response) {
+            console.log(response)
+
+            if(response)
+            {
+                alert("Horario actualizado con exito")
+                getHorarios()
+            }
+
+        })
+
+
+
+
+    }
      function verificarHorario(id_docente)
      {
 
-         $.post('?controlador=docente&accion=verificarHorario',{"id":id_docente},(response)=>{
+         $.post('?controlador=docente&accion=updateHorario',{"id":id_docente},(response)=>{
 
              return response;
 

@@ -19,7 +19,7 @@
                                     "programas",
                                        "getRoles",
                                         "datosDocente"),
-                  "docente"=>array("regHorario","logout")
+                  "docente"=>array("regHorario","logout","updateHorario")
 
     
     );
