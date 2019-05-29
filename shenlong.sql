@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.2 (64 bit)
-MySQL - 10.1.38-MariaDB : Database - shenlong
+MySQL - 10.1.37-MariaDB : Database - shenlong
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.1.38-MariaDB : Database - shenlong
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `shenlong`;
 
@@ -69,9 +69,6 @@ CREATE TABLE `docentes_horarios` (
 
 /*Data for the table `docentes_horarios` */
 
-insert  into `docentes_horarios`(`docente_horario_id`,`usuario_id`,`fecha`) values 
-(8,1,'2019-05-29');
-
 /*Table structure for table `horarios` */
 
 DROP TABLE IF EXISTS `horarios`;
@@ -93,25 +90,6 @@ CREATE TABLE `horarios` (
 
 /*Data for the table `horarios` */
 
-insert  into `horarios`(`horario_id`,`lunes`,`martes`,`miercoles`,`jueves`,`viernes`,`sabado`,`docente_horario_id`,`fecha`) values 
-(96,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(97,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(98,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(99,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(100,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(101,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(102,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(103,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(104,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(105,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(106,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(107,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(108,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(109,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(110,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(111,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
-(112,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29');
-
 /*Table structure for table `programas` */
 
 DROP TABLE IF EXISTS `programas`;
@@ -121,14 +99,12 @@ CREATE TABLE `programas` (
   `programa_nombre` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`programa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `programas` */
 
 insert  into `programas`(`programa_id`,`programa_nombre`,`fecha`) values 
-(1,'INGENIERIA DE SISTEMAS',NULL),
-(2,'BIOLOGIA',NULL),
-(3,'MATEMATICA PURA',NULL);
+(4,'INGENIERIA DE SISTEMAS',NULL);
 
 /*Table structure for table `programas_asignaturas` */
 
