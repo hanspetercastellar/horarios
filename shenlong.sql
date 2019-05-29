@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.2 (64 bit)
-MySQL - 10.1.37-MariaDB : Database - shenlong
+MySQL - 10.1.38-MariaDB : Database - shenlong
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.1.37-MariaDB : Database - shenlong
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci */;
 
 USE `shenlong`;
 
@@ -65,14 +65,12 @@ CREATE TABLE `docentes_horarios` (
   PRIMARY KEY (`docente_horario_id`),
   KEY `fk_usuarios_horarios` (`usuario_id`),
   CONSTRAINT `fk_usuarios_horarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `docentes_horarios` */
 
 insert  into `docentes_horarios`(`docente_horario_id`,`usuario_id`,`fecha`) values 
-(4,1,'2019-05-28'),
-(5,3,'2019-05-29'),
-(6,3,'2019-05-29');
+(8,1,'2019-05-29');
 
 /*Table structure for table `horarios` */
 
@@ -91,28 +89,28 @@ CREATE TABLE `horarios` (
   PRIMARY KEY (`horario_id`),
   KEY `fk_horarios_horarios_docentes` (`docente_horario_id`),
   CONSTRAINT `fk_horarios_horarios_docentes` FOREIGN KEY (`docente_horario_id`) REFERENCES `docentes_horarios` (`docente_horario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `horarios` */
 
 insert  into `horarios`(`horario_id`,`lunes`,`martes`,`miercoles`,`jueves`,`viernes`,`sabado`,`docente_horario_id`,`fecha`) values 
-(62,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(63,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(64,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(65,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(66,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(67,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(68,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(69,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(70,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(71,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(72,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(73,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(74,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(75,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(76,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(77,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29'),
-(78,' 22:00 ',' 22:00 ',' 22:00 ',' 22:00 ','    ','    ',6,'2019-05-29');
+(96,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(97,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(98,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(99,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(100,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(101,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(102,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(103,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(104,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(105,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(106,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(107,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(108,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(109,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(110,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(111,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29'),
+(112,'  ','  ','  22:00 ','  ','  ','  ',8,'2019-05-29');
 
 /*Table structure for table `programas` */
 
@@ -121,15 +119,16 @@ DROP TABLE IF EXISTS `programas`;
 CREATE TABLE `programas` (
   `programa_id` int(11) NOT NULL AUTO_INCREMENT,
   `programa_nombre` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   PRIMARY KEY (`programa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `programas` */
 
-insert  into `programas`(`programa_id`,`programa_nombre`) values 
-(1,'INGENIERIA DE SISTEMAS'),
-(2,'BIOLOGIA'),
-(3,'MATEMATICA PURA');
+insert  into `programas`(`programa_id`,`programa_nombre`,`fecha`) values 
+(1,'INGENIERIA DE SISTEMAS',NULL),
+(2,'BIOLOGIA',NULL),
+(3,'MATEMATICA PURA',NULL);
 
 /*Table structure for table `programas_asignaturas` */
 
@@ -205,6 +204,16 @@ join docentes_horarios as dh using(docente_horario_id)
 WHERE dh.usuario_id = cedula */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `deleteProgramas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteProgramas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteProgramas`(in programa_id_par int)
+delete from programas where programa_id = programa_id_par */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getAsignaturasXdocentes` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getAsignaturasXdocentes` */;
@@ -260,6 +269,16 @@ select usuario_nombre as nombre,
      usuario_apellido as apellido,
       usuario_documento as documento
       from usuarios */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getProgramas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getProgramas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProgramas`()
+select * from programas */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `getRoles` */
@@ -326,6 +345,16 @@ insert into docentes_horarios (usuario_id,fecha)
       values (id_docente,now());
 select docente_horario_id from docentes_horarios order by docente_horario_id DESC limit 1;
 end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `regProgramas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `regProgramas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `regProgramas`(in nombre varchar(255))
+insert into programas (programa_nombre) values (nombre) */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `regUsuarios` */

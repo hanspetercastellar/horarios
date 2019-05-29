@@ -73,6 +73,8 @@ class docente_model{
         $bd = new conexion();
         $c  = $bd->conectar();
         // echo   var_dump($lunes);die;
+
+        $docente = intval($docente);
         if($c==null)
         {
             echo "conexion nula";
@@ -102,8 +104,6 @@ class docente_model{
 
             $estado=true;
             echo $estado;
-
-
         }
 
 

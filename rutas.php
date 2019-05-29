@@ -18,7 +18,10 @@
                                    "asignaturas",
                                     "programas",
                                        "getRoles",
-                                        "datosDocente"),
+                                        "datosDocente",
+                                         "getProgramas",
+                                          "eliminarPrograma"
+                                            ),
                   "docente"=>array("regHorario","logout","updateHorario")
 
     

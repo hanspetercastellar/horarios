@@ -234,6 +234,35 @@ class admin_model{
 
     }
 
+    public function getProgramas()
+    {
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $sql= "CALL getProgramas()";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->execute();
+
+        $programas=array();
+            $cont = 1;
+        while ($data = $datos->fetch())
+        {
+            $id = $data["programa_id"];
+            $programas[]= array(
+                "item"=>$cont,
+                "nombre"=>$data["programa_nombre"],
+                "fecha"=>$data["fecha"],
+                "accion"=>"<a href='#' onclick='eliminar($id)' class='btn btn-sm btn-danger' title='eliminar'>X</a>"
+            );
+
+            $cont++;
+        }
+           $programas = array("data"=>$programas);
+
+           return $programas;
+
+    }
+
 
 
 

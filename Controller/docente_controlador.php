@@ -50,11 +50,10 @@ class docente_controlador{
         //aqui se almacena el id de la tabla que esta haciendo foranea de la tabla horarios
         $id_docente_horario = docente_model::getIdHoraiosDocentes($_SESSION['id_usuario']);
 
-        //var_dump($array);die;
+
 
         for ($i=0; $i<= count($array)-1; $i++)
         {
-
             $estado =  docente_model::updateHorario(
                 $array[$i][0],
                 $array[$i][1],
@@ -63,7 +62,6 @@ class docente_controlador{
                 $array[$i][4],
                 $array[$i][5],
                 $id_docente_horario
-
             );
 
 

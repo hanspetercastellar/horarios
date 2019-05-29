@@ -144,4 +144,24 @@ class admin_controlador{
 
 
     }
+
+    public function getProgramas()
+    {
+
+        $programas = admin_model::getProgramas();
+
+        echo json_encode($programas);
+
+    }
+
+    public function eliminarPrograma()
+    {
+
+        $id = $_POST["id"];
+
+        $eliminado = admin_model::eliminarPrograma($id);
+
+        return $eliminado;
+
+    }
 }

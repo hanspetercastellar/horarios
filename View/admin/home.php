@@ -67,7 +67,7 @@
              <div class="col">
                  <div class="row justify-content-end">
                      <div class="col-sm-2 col-md-2 col-md-2">
-                         <button  class="btn btn-sm btn-secondary d-none" id="editar">Editar horario</button>
+                         <!--<button  class="btn btn-sm btn-secondary d-none" id="editar">Editar horario</button>-->
                      </div>
                      <div class="col-sm-4 col-md-4 col-md-4">
                          <button class="btn btn-sm btn-success" id="guardar">Guardar horario</button>
@@ -194,7 +194,7 @@
 
                   if($($(td)[i]).text()==" ")
                   {
-                      alert()
+
                       $($(td)[i]).addClass("bg-success")
                   }
 
@@ -337,6 +337,7 @@
                 {
                     alert("Horario registrado")
                     getHorarios()
+                    $("#guardar").addClass("d-none")
                 }
 
             })
