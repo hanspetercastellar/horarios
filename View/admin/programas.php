@@ -11,10 +11,10 @@
                 <section class="border p-3">
                     <div class="form-group">
                         <label>Nombre del programa</label>
-                        <input type="text"  onkeyup="this.value = this.value.toUpperCase();" class="form-control">
+                        <input type="text"  onkeyup="this.value = this.value.toUpperCase();" id="programa" class="form-control">
                     </div>
                     <div class="form-group">
-                        <input type="submit"   class="btn btn-primary">
+                        <input type="submit"  id="reg" class="btn btn-primary">
                     </div>
                 </section>
             </div>
@@ -47,6 +47,20 @@
     window.onload = function (){
 
         cargarTabla()
+
+        $("#reg").click(()=>{
+
+          if($("#programa").val()=="")
+          {
+              alert("No se admiten datos vacios")
+              return false
+          }else{
+
+              regPrograma($("#programa").val())
+          }
+
+
+        })
     }
 
     function cargarTabla()
@@ -79,10 +93,11 @@
 
      function regPrograma(programa)
         {
-            $.post("?controlador=admin&accion=regPrograma",{"dato":programa},(response)=>{
+            $.post("?controlador=admin&accion=regProgramas",{"dato":programa},(response)=>{
 
 
-
+                cargarTabla()
+                $("#programa").val("")
             })
 
 

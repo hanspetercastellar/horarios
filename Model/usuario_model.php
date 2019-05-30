@@ -132,6 +132,7 @@ class    usuario_model{
 
                 while ( $dato =  $sth->fetch(PDO::FETCH_ASSOC))
                 {
+                    $id = $dato["id"];
                      $data[]= array(
                                 "rol"=>$dato["rol"],
                                  "nombre"=>$dato["nombre"],
@@ -140,7 +141,8 @@ class    usuario_model{
                                       "direccion"=>$dato["direccion"],
                                       "telefono"=>$dato["telefono"],
                                       "correo"=>$dato["correo"],
-                                       "eliminar"=>'<button type="button" class="btn btn-danger">X</button>'
+                                       "eliminar"=>'<a href="#" onclick="eliminar('.$id.')" type="button" class="btn btn-danger">X</a>
+                                                    <a href="#" onclick="editar('.$id.')" type="button" class="btn btn-success">edit</a>'
                                 );
                 }
 

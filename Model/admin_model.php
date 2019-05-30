@@ -281,6 +281,22 @@ class admin_model{
 
     }
 
+    public function regProgramas($nombre)
+    {
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+
+        $sql= "CALL regProgramas(:nombre)";
+        //$hash_password= md5( $password); //Password encryption
+        $sth =$conect->prepare($sql);
+        $sth->bindParam(':nombre', $nombre,PDO::PARAM_STR,255);
+
+        return $sth->execute();
+
+
+    }
+
 
 
 

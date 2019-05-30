@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.2 (64 bit)
-MySQL - 10.1.37-MariaDB : Database - shenlong
+MySQL - 10.1.38-MariaDB : Database - shenlong
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.1.37-MariaDB : Database - shenlong
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`shenlong` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci */;
 
 USE `shenlong`;
 
@@ -65,9 +65,12 @@ CREATE TABLE `docentes_horarios` (
   PRIMARY KEY (`docente_horario_id`),
   KEY `fk_usuarios_horarios` (`usuario_id`),
   CONSTRAINT `fk_usuarios_horarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `docentes_horarios` */
+
+insert  into `docentes_horarios`(`docente_horario_id`,`usuario_id`,`fecha`) values 
+(9,1,'2019-05-29');
 
 /*Table structure for table `horarios` */
 
@@ -86,9 +89,28 @@ CREATE TABLE `horarios` (
   PRIMARY KEY (`horario_id`),
   KEY `fk_horarios_horarios_docentes` (`docente_horario_id`),
   CONSTRAINT `fk_horarios_horarios_docentes` FOREIGN KEY (`docente_horario_id`) REFERENCES `docentes_horarios` (`docente_horario_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `horarios` */
+
+insert  into `horarios`(`horario_id`,`lunes`,`martes`,`miercoles`,`jueves`,`viernes`,`sabado`,`docente_horario_id`,`fecha`) values 
+(113,' 06:00 ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(114,' 07:00 ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(115,' 08:00 ',' ',' ',' ',' ',' 08:00 ',9,'2019-05-29'),
+(116,' 09:00 ',' ',' ',' 09:00 ',' ',' ',9,'2019-05-29'),
+(117,' 10:00 ',' ',' ',' ',' ',' 10:00 ',9,'2019-05-29'),
+(118,' ',' 11:00 ',' ',' ',' 11:00 ',' ',9,'2019-05-29'),
+(119,' 12:00 ',' 12:00 ',' ',' ',' ',' ',9,'2019-05-29'),
+(120,' ',' 13:00 ',' ',' 13:00 ',' ',' ',9,'2019-05-29'),
+(121,' 14:00 ',' ',' 14:00 ',' ',' 14:00 ',' ',9,'2019-05-29'),
+(122,' 15:00 ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(123,' 16:00 ',' ',' 16:00 ',' 16:00 ',' ',' ',9,'2019-05-29'),
+(124,' 17:00 ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(125,' ',' ',' 18:00 ',' 18:00 ',' ',' ',9,'2019-05-29'),
+(126,' ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(127,' ',' ',' ',' 20:00 ',' ',' ',9,'2019-05-29'),
+(128,' ',' ',' ',' ',' ',' ',9,'2019-05-29'),
+(129,' ',' ',' ',' 22:00 ',' ',' ',9,'2019-05-29');
 
 /*Table structure for table `programas` */
 
@@ -99,12 +121,13 @@ CREATE TABLE `programas` (
   `programa_nombre` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   PRIMARY KEY (`programa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `programas` */
 
 insert  into `programas`(`programa_id`,`programa_nombre`,`fecha`) values 
-(4,'INGENIERIA DE SISTEMAS',NULL);
+(5,'BIOLOGÃA',NULL),
+(6,'INGENIERIA DE SISTEMAS','2019-05-29');
 
 /*Table structure for table `programas_asignaturas` */
 
@@ -280,7 +303,8 @@ select usuario_nombre as nombre,
            direccion,
            telefono,
            correo,
-           rol
+           rol,
+           usuario_id as id
     from usuarios 
     join roles 
     using (rol_id) */$$
@@ -330,7 +354,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `regProgramas`(in nombre varchar(255))
-insert into programas (programa_nombre) values (nombre) */$$
+insert into programas (programa_nombre,fecha) values (nombre,now()) */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `regUsuarios` */

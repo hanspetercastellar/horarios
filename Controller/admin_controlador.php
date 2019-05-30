@@ -164,4 +164,12 @@ class admin_controlador{
        echo $eliminado;
 
     }
+
+    public function regProgramas()
+    {
+        $respuesta = admin_model::regProgramas($_POST["dato"]);
+
+        echo $respuesta;
+
+    }
 }
