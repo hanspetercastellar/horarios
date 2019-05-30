@@ -64,6 +64,28 @@ class usuario_controlador{
 
     }
 
+    public function editUsuario()
+    {
+        $datos = usuario_model::editUsuario($_POST["id"]);
+
+        echo json_encode($datos);
+    }
+
+    public function update()
+    {
+
+        $updated = usuario_model::update($_POST["id"],$_POST["nombre"],$_POST["apellido"],$_POST["documento"],$_POST["direccion"],$_POST["telefono"],$_POST["correo"],$_POST["rol"],$_POST["pass"]);
+
+        echo $updated;
+    }
+
+    public function eliminar()
+    {
+        $eliminado = usuario_model::eliminar($_POST["id"]);
+
+        echo $eliminado;
+
+    }
 
 
 

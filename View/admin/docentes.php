@@ -4,10 +4,10 @@
     <div class="container">
         <form autocomplete="off" id="form">
             <div class="row">
+                <input type="hidden" id="id">
                 <div class="col-sm-3 col-md-3 col-lg-3">
                     <label>Rol</label>
                     <select id="rol" name="rol" class="form-control form-control-sm custom-select custom-select-sm">
-
                     </select>
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
@@ -49,6 +49,9 @@
                  <div class="col">
                      <input class="btn btn-primary" type="submit" value="Enviar" id="enviar">
                  </div>
+                 <div class="col">
+                     <input class="btn btn-success d-none" type="submit" value="Actualizar" id="Actualizar">
+                 </div>
              </div>
 
         </form>
@@ -65,7 +68,8 @@
                <th>Direccion</th>
                <th>Telefono</th>
                <th>Correo</th>
-                <th>Opciones</th>
+                <th>Eliminar</th>
+                <th>Editar</th>
             </tr>
             </thead>
             <tbody>
@@ -78,6 +82,7 @@
 
 <script>
 
+    var id=0;
     //esperamos a que cargue el documento
     window.onload = function ()
     {
@@ -133,7 +138,16 @@
             verificarCorreo()
         })
 
+        $("#Actualizar").click((e)=>{
+            e.preventDefault();
+            update()
+
+
+        })
+
     }
+
+
 
      function getRoles()
      {
@@ -182,7 +196,8 @@
                  {"data": "direccion"},
                  {"data": "telefono"},
                  {"data": "correo"},
-                 {"data": "eliminar"}
+                 {"data": "eliminar"},
+                 {"data": "editar"}
              ],
          })
      }
@@ -215,7 +230,7 @@
 
         $.post("?controlador=usuario&accion=verificarCorreo",{"correo":correo},(response)=>{
 
-            if(response >"0" )
+            if(response >"0")
             {
 
                 alert("Disculpe, ya existe un usuario con este correo")
@@ -228,6 +243,99 @@
             }
 
         });
+
+    }
+
+    function edit(id)
+    {
+
+        $("#id").val(id);
+
+        $.post("?controlador=usuario&accion=editUsuario",{"id":id},(response)=>{
+              var  json = JSON.parse(response)
+
+            console.log(json)
+             // console.log(json[0].rol_id)
+              $("#nombre").val(json[0].nombre)
+              $("#apellidos").val(json[0].apellido)
+              $("#documento").val(json[0].documento)
+              $("#direccion").val(json[0].direccion)
+              $("#telefono").val(json[0].telefono)
+              $("#correo").val(json[0].correo)
+              $(`#rol option[value="${json[0].rol_id}"]`).attr("selected",true)
+              $("#correo").val(json[0].correo)
+              $("#pass").val(json[0].pass)
+              $("#enviar").attr("disabled","disabled")
+              $("#Actualizar").removeClass("d-none")
+
+
+        })
+
+
+
+    }
+
+    function validar()
+    {
+
+        var form = $("#form").serializeArray();
+
+        //teniendo los datos de forma de arreglo procedo a iterarlos para validar
+        for (let i=0; i<form.length; i++ )
+        {
+            //en esta condicion valido todos los campos de mi formulario
+            if(form[i].value =="")
+            {
+                alert(`Disculpe el campo ${form[i].name} es obligatorio`)
+                return false
+            }else{
+
+                return true
+            }
+
+        }
+    }
+
+    function update(id)
+    {
+
+
+         if(validar)
+         {
+
+            var nombre = $("#nombre").val(),
+                apellido =  $("#apellidos").val(),
+                documento =  $("#documento").val(),
+                direccion =  $("#direccion").val(),
+                telefono = $("#telefono").val(),
+                correo = $("#correo").val(),
+                rol = $(`#rol`).val(),
+                 pass =  $("#pass").val();
+              var datos={"id":$("#id").val(),"nombre":nombre,"apellido":apellido,"documento":documento,"direccion":direccion,"telefono":telefono,"correo":correo,"rol":rol,"pass":pass};
+
+            $.post("?controlador=usuario&accion=update",datos,(res)=>{
+
+                console.log(res)
+
+            })
+
+
+         }
+
+
+    }
+
+    function eliminar(id) {
+
+        $.post("?controlador=usuario&accion=eliminar",{"id":id},(response)=>{
+
+            if(response){
+
+
+
+            }
+
+        })
 
     }
 </script>

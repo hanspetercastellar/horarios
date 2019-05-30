@@ -136,13 +136,13 @@ class    usuario_model{
                      $data[]= array(
                                 "rol"=>$dato["rol"],
                                  "nombre"=>$dato["nombre"],
-                                   "apellido"=>$dato["apellido"],
-                                     "documento"=>$dato["documento"],
-                                      "direccion"=>$dato["direccion"],
-                                      "telefono"=>$dato["telefono"],
-                                      "correo"=>$dato["correo"],
-                                       "eliminar"=>'<a href="#" onclick="eliminar('.$id.')" type="button" class="btn btn-danger">X</a>
-                                                    <a href="#" onclick="editar('.$id.')" type="button" class="btn btn-success">edit</a>'
+                                  "apellido"=>$dato["apellido"],
+                                  "documento"=>$dato["documento"],
+                                  "direccion"=>$dato["direccion"],
+                                  "telefono"=>$dato["telefono"],
+                                  "correo"=>$dato["correo"],
+                                  "eliminar"=>'<a href="" onclick="eliminar('.$id.')" type="button" class="btn btn-danger">X</a>',
+                                  "editar"=>'<a href="javascript:edit('.$id.')" type="button" class="btn btn-success">editar</a>'
                                 );
                 }
 
@@ -166,4 +166,133 @@ class    usuario_model{
 
 
     }
+
+    public function editUsuario($id)
+    {
+        $bd = new conexion();
+        $c  = $bd->conectar();
+        if($c==null){
+            echo 'CONEXION NULA';
+
+        }else {
+
+            try {
+
+
+                $sql='CALL getUsuariosUpdate(:id)';
+                $sth=$c->prepare($sql);
+                $sth->bindParam(':id', $id, PDO::PARAM_INT);
+                $sth->execute();
+
+
+                while ( $dato =  $sth->fetch(PDO::FETCH_ASSOC))
+                {
+                    $data[]= array(
+                        "rol"=>$dato["rol"],
+                        "rol_id"=>$dato["rol_id"],
+                        "nombre"=>$dato["nombre"],
+                        "apellido"=>$dato["apellido"],
+                        "documento"=>$dato["documento"],
+                        "direccion"=>$dato["direccion"],
+                        "telefono"=>$dato["telefono"],
+                        "correo"=>$dato["correo"],
+                        "pass"=>$dato["pass"]
+                    );
+                }
+
+
+                return ($data);
+
+
+            }
+            catch (PDOException $ex) {
+                die("Error occurred:" . $ex->getMessage());
+                $estado=false;
+            }
+            $bd->cerrar();
+
+
+
+
+        }
+
+
+    }
+
+    public function update($id,$nombre, $apellido, $documento, $direccion, $telefono, $correo,$rol,$pass)
+    {
+        $bd = new conexion();
+        $c  = $bd->conectar();
+        if($c==null){
+            echo 'CONEXION NULA';
+
+        }else{
+
+
+            try {
+
+
+                $sql='CALL updateUsuario(:id,:nombre,:apellido,:documento,:direccion,:telefono,:correo,:rol,:pass)';
+                $sth=$c->prepare($sql);
+                $sth->bindParam(':nombre', $nombre, PDO::PARAM_STR,45);
+                $sth->bindParam(':apellido',$apellido, PDO::PARAM_STR,45);
+                $sth->bindParam(':documento',$documento , PDO::PARAM_STR,11);
+                $sth->bindParam(':direccion',$direccion, PDO::PARAM_STR,100);
+                $sth->bindParam(':telefono',$telefono, PDO::PARAM_STR,11);
+                $sth->bindParam(':correo',$correo, PDO::PARAM_STR,100);
+                $sth->bindParam(':pass',$pass, PDO::PARAM_STR,100);
+                $sth->bindParam(':rol',$rol, PDO::PARAM_INT);
+                $sth->bindParam(':id',$id, PDO::PARAM_INT);
+
+
+                $sth->execute();
+                //echo "registro exitoso correctamente";
+            }
+            catch (PDOException $ex) {
+                die("Error occurred:" . $ex->getMessage());
+                $estado=false;
+            }
+            $bd->cerrar();
+            $estado=true;
+
+
+            return $estado;
+
+
+        }
+
+
+
+    }
+
+    public function eliminar($id)
+    {
+        $bd = new conexion();
+        $c  = $bd->conectar();
+        if($c==null){
+            echo 'CONEXION NULA';
+
+        }else {
+
+            try {
+
+
+                $sql='CALL deleteUsuario(:id)';
+                $sth=$c->prepare($sql);
+                $sth->bindParam(':id', $id, PDO::PARAM_INT);
+
+                return $sth->execute();
+
+            }
+            catch (PDOException $ex) {
+                die("Error occurred:" . $ex->getMessage());
+                $estado=false;
+            }
+
+        }
+
+
+    }
+
+
 }

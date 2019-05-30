@@ -7,7 +7,7 @@
     </nav>
      <div class="container" >
 
-         <div class="row  mt-3 d-flex justify-content-start  ">
+        <!-- <div class="row  mt-3 d-flex justify-content-start  ">
            <input type="hidden" id="id_docente" value="<?= $_SESSION["id_usuario"]?>">
              <div class=" col-xl-2 col-md-2 col-sm-2 border-right " style="border-right: #4e555b solid">
                  <h6>Información general</h6>
@@ -59,7 +59,7 @@
                      </div>
                  </form>
              </div>
-         </div>
+         </div>-->
          <div class="row justify-content-between mt-3">
              <div class="col">
 
