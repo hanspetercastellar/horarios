@@ -14,7 +14,6 @@ class admin_controlador{
             if ($_SESSION["rol"]==1){
                 require_once "View/header.php" ;
                 require_once "View/template_navbar.php";
-
                 require_once "View/admin/home.php";
 
 
@@ -172,4 +171,25 @@ class admin_controlador{
         echo $respuesta;
 
     }
+
+    public function getAsignaturasXprogramas()
+    {
+
+        $asignaturas = admin_model::getAsignaturasXprogramas($_POST["id"]);
+
+       echo  json_encode($asignaturas);
+
+
+    }
+
+    public function regAsignaturasDocentes()
+    {
+
+        $registrado = admin_model::regAsignaturasDocentes($_POST["id_docente"],$_POST["id_asignatura"]);
+
+        echo $registrado;
+
+    }
+
+
 }

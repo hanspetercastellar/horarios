@@ -17,9 +17,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="?controlador=admin&accion=docentes">Usuarios</a>
                     </li>
-                   <!-- <li class="nav-item">
+                   <li class="nav-item">
                         <a class="nav-link" href="?controlador=admin&accion=asignaturas">Asignaturas</a>
-                    </li>-->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?controlador=admin&accion=programas">Programas</a>
                     </li>

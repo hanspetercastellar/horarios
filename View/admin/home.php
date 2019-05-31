@@ -208,8 +208,22 @@
 
 
                   buttons: [
-                      'copy', 'csv', 'excel', 'pdf', 'print'
+                      {
+                          extend: 'excel',
+                          messageTop: '',
+                          title: "Horario",
+                      },  {
+                          extend: 'pdfHtml5',
+                          title: "Horario",
+                          customize: function(doc) {
+                              doc.styles.title = {
+                                  color: 'black',
+                                  fontSize: '20',
+                              }
+                          }
+                      }, 'print'
                   ],
+
               });
 
 
@@ -249,7 +263,25 @@
 
 
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                'copy',{
+                    extend: 'csvHtml5',
+                    title: "Horario",
+                    customize: function(doc) {
+                        doc.styles.title = {
+                            color: 'black',
+                            fontSize: '20',
+                        }
+                    }
+                } , 'excel', {
+                    extend: 'pdfHtml5',
+                    title: "Horario",
+                    customize: function(doc) {
+                        doc.styles.title = {
+                            color: 'black',
+                            fontSize: '20',
+                        }
+                    }
+                }, 'print'
             ],
         });
 

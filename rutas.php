@@ -11,7 +11,10 @@
     "admin" => array("home","login","PanelAdmin","horarios","getHorarios","buscarHorarioXdocente","docentes","asignaturas","programas","getRoles","datosDocente",
                                     "getProgramas",
                                     "eliminarPrograma",
-                                    "regProgramas"
+                                    "regProgramas",
+                                    "getAsignaturasXprogramas",
+                                    "getDocentes",
+                                    "regAsignaturasDocentes"
                                             ),
                   "docente"=>array("regHorario","logout","updateHorario")
 

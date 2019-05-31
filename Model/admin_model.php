@@ -127,10 +127,11 @@ class admin_model{
         {
             $id= $data["id"];
             $nombre = $data["nombre"];
-
+            $ape=$data["apellido"];
+             $cc = $data["cedula"];
            echo "
 
-                      <option value=\"$id\">$nombre</option>
+                      <option value=\"$id\">$nombre " .$ape." (doc: ".$cc."  )</option>
 
                   ";
 
@@ -251,6 +252,7 @@ class admin_model{
             $id = $data["programa_id"];
             $programas[]= array(
                 "item"=>$cont,
+                "id"=>$data["programa_id"],
                 "nombre"=>$data["programa_nombre"],
                 "fecha"=>$data["fecha"],
                 "accion"=>"<a href='#' onclick='eliminar($id)' class='btn btn-sm btn-danger' title='eliminar'>X</a>"
@@ -297,7 +299,49 @@ class admin_model{
 
     }
 
+    public function getAsignaturasXprogramas($id)
+    {
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $sql= "CALL getAsignaturasXprogramas(:id)";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->bindParam(':id', $id,PDO::PARAM_INT );
+        $datos->execute();
+
+        $asignaturas = array();
+        $cont = 1;
+        while ($data = $datos->fetch())
+        {
+            $asignaturas[]= array(
+                "id"=>$data["asignatura_id"],
+                "nombre"=>$data["asignatura"]
+            );
 
 
+        }
+
+        return  $asignaturas;
+
+    }
+
+    public function regAsignaturasDocentes($id_docente,$id_asignatura)
+    {
+
+
+        $db = new Conexion();
+        $conect = $db->conectar();
+        $sql= "CALL regAsignaturasDocentes(:id_docente,:id_asignatura)";
+        //$hash_password= md5( $password); //Password encryption
+        $datos =$conect->prepare($sql);
+        $datos->bindParam(':id_docente', $id_docente,PDO::PARAM_INT );
+        $datos->bindParam(':id_asignatura', $id_asignatura,PDO::PARAM_INT );
+        $datos->execute();
+
+        return  $datos->execute();
+
+
+    }
 
 }

@@ -9,12 +9,12 @@
               <div class="col col-xl-6 col-md-6 col-sm-5" >
                   <form class="form-row">
                       <div class="col col-xl-8 col-md-8 col-sm-8">
-                          <input class="form-control" type="text" placeholder="Selecciona uno" list="docenteList" id="docente">
-                          <datalist id="docenteList">
-                          <?php admin_model::getDocentes();
 
-                          ?>
-                          </datalist>
+                          <select class="form-control custom-select" type="text" placeholder="Selecciona uno" list="docenteList" id="docente">
+                              <?php admin_model::getDocentes();
+
+                              ?>
+                          </select>
                       </div>
                       <div class="col col-xl-2 col-md-2 col-sm-2">
                           <button class="btn btn-primary" id="buscar">Buscar</button>
@@ -171,20 +171,34 @@
                 $("#table tbody").append(tr)
             });
 
-            $("#table").DataTable({
-                "lengthChange": false,
-                "paging": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
-            });
 
+            tabla()
 
 
         });
 
 
+    }
+
+    function tabla()
+    {
+        $("#table").DataTable({
+            paging: false,
+            searching: false,
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'pdfHtml5',
+                title: 'Horario' + '\n' + `Docente: ${$("#nombre").val()} ${ $("#apellido").val() } \n Documento: ${ $("#cedula").val() } `,
+                customize: function(doc) {
+                    doc.styles.title = {
+                        color: 'black',
+                        fontSize: '12',
+                        alignment: 'left'
+                    }
+                }
+            },
+            ],
+        });
     }
 
 
